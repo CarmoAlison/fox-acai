@@ -457,6 +457,7 @@ nav ul li a:hover {
 
 .size-option input[type="radio"] {
     margin-right: 8px;
+    accent-color: #5B2690;
 }
 
 .add-to-cart {
@@ -1202,12 +1203,10 @@ footer::before {
 }
 
 @media (max-width: 768px) {
-    header .container {
-        flex-direction: column;
-    }
     
     nav ul {
         margin-top: 20px;
+        display: none;
     }
     
     nav ul li {
@@ -1256,6 +1255,13 @@ footer::before {
     
     .cart-modal {
         max-width: 100%;
+    }
+    #custumizarTamanhos{
+        font-size: 17px;
+    }
+
+    .btn{
+        font-size: 20px;
     }
     
     /* Ajusta animações para mobile */
