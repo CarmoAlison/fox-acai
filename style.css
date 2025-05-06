@@ -1194,7 +1194,7 @@ footer::before {
 /* Responsive */
 @media (max-width: 992px) {
     .section-title {
-        font-size: 2rem;
+        font-size: 17px;
     }
     
     .hero h2 {
@@ -1240,8 +1240,12 @@ footer::before {
 }
 
 @media (max-width: 576px) {
+
+    .container{
+        width: 100%;
+    }
     .section-title {
-        font-size: 1.8rem;
+        font-size: 25px;
     }
     
     nav ul {
@@ -1269,6 +1273,29 @@ footer::before {
     .highlight {
         animation: fadeIn 0.5s ease-out forwards !important;
         animation-delay: 0s !important;
+    }
+    .customer-info-modal input{
+        width: 100%;
+        color: #5b2690;
+        border-radius: 20px;
+        border: .2px solid #5b2690;
+        outline: none;
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .logo img{
+        width: 50px;
+    }
+    .text-logo{
+        font-size: 15px;
+    }
+
+    .logo hr{
+        height: 50px;
+    }
+    header{
+        padding: 10px;
     }
 }
 
