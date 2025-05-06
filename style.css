@@ -34,7 +34,7 @@ body {
 
 .container {
     width: 90%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 15px;
     animation: fadeIn 0.8s ease-out forwards;
@@ -90,15 +90,15 @@ body {
     text-transform: uppercase;
     color: #ffffff;
     position: relative;
-    display: inline-block;
     padding-bottom: 10px;
+    margin: auto;
 }
 
 /* Animação de sublinhado para títulos */
 .section-title::after {
     content: '';
     position: absolute;
-    bottom: 20px;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
@@ -108,7 +108,7 @@ body {
 }
 
 .section-title:hover::after {
-    width: 80%;
+    width: 50%;
 }
 
 .section-title span {
@@ -362,7 +362,7 @@ nav ul li a:hover {
 
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
     margin-top: 50px;
 }
@@ -988,7 +988,7 @@ footer::before {
     height: 100%;
     background-color: var(--white-color);
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    z-index: 2000;
+    z-index: 3000;
     transition: right 0.3s ease;
     overflow-y: auto;
     will-change: right;
@@ -1270,4 +1270,76 @@ footer::before {
         animation: fadeIn 0.5s ease-out forwards !important;
         animation-delay: 0s !important;
     }
+}
+
+
+/* Estilos para o modal de informações do cliente */
+.customer-info-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 4000;
+}
+
+.customer-info-modal.active {
+    display: flex;
+}
+
+.customer-info-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.customer-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.customer-info-header h3 {
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.close-customer-info {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.payment-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.payment-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.customer-info-modal input{
+    width: 100%;
+    color: #5b2690;
+    border-radius: 20px;
+    border: .2px solid #5b2690;
+    outline: none;
+    padding: 15px;
+    font-size: 20px;
+}
+.customer-info-modal input[type=radio]{
+    accent-color: #5b2690;
 }

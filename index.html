@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,53 +10,55 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <div class="header">
-    <header>
-        <div class="container">
-            <div class="logo">
-                <img src="imagens/fox (4).png" alt="">
-                <hr>
-                <div class="text-logo">
-                    <h1>Fox</h1>
-                    <h1 id="acai">Açai</h1>
+        <header>
+            <div class="container">
+                <div class="logo">
+                    <img src="imagens/fox (4).png" alt="">
+                    <hr>
+                    <div class="text-logo">
+                        <h1>Fox</h1>
+                        <h1 id="acai">Açai</h1>
+                    </div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#products">Cardápio</a></li>
+                        <li><a href="#custom">Personalize</a></li>
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </nav>
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
                 </div>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Início</a></li>
-                    <li><a href="#products">Cardápio</a></li>
-                    <li><a href="#custom">Personalize</a></li>
-                    <li><a href="#about">Sobre</a></li>
-                    <li><a href="#contact">Contato</a></li>
-                </ul>
-            </nav>
-            <div class="cart-icon">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count">0</span>
-            </div>
-        </div>
-    </header>
+        </header>
 
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <img src="imagens/2.png" alt="">
-                <h2>O <span>MELHOR AÇAÍ</span> DA CIDADE!</h2>
-                <p>Experimente nossa linha especial TOPZERA com ingredientes premium</p>
-                <a href="#products" class="btn">VER CARDÁPIO</a>
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <img src="imagens/2.png" alt="">
+                    <h2>O <span>MELHOR AÇAÍ</span> DA CIDADE!</h2>
+                    <p>Experimente nossa linha especial TOPZERA com ingredientes premium</p>
+                    <a href="#products" class="btn">VER CARDÁPIO</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
     </div>
 
     <section class="products" id="products">
         <div class="container">
             <h2 class="section-title">NOSSOS <span>ESPECIAIS</span></h2>
             <p class="section-subtitle">Conheça nossa linha especial de açaís</p>
-            
+
             <div class="product-grid">
                 <!-- Produto 1 -->
                 <div class="product-card">
@@ -64,7 +67,8 @@
                     </div>
                     <div class="product-info">
                         <h3>ESPECIAL NIX</h3>
-                        <p class="product-description">Feito com borda de Nutella, leite Ninho, bombom e finalizado com mais Nutella e leite em pó.</p>
+                        <p class="product-description">Feito com borda de Nutella, leite Ninho, bombom e finalizado com
+                            mais Nutella e leite em pó.</p>
                         <div class="product-sizes">
                             <div class="size-option">
                                 <input type="radio" id="nix-400" name="nix-size" value="400" checked>
@@ -78,7 +82,7 @@
                         <button class="add-to-cart" data-product="ESPECIAL NIX">ADICIONAR AO CARRINHO</button>
                     </div>
                 </div>
-                
+
                 <!-- Produto 2 -->
                 <div class="product-card">
                     <div class="product-image">
@@ -86,7 +90,8 @@
                     </div>
                     <div class="product-info">
                         <h3>ESPECIAL FOX</h3>
-                        <p class="product-description">Feito com borda de Nutella, creme de Ninho trufado, pedaços de Kit Kat e morango.</p>
+                        <p class="product-description">Feito com borda de Nutella, creme de Ninho trufado, pedaços de
+                            Kit Kat e morango.</p>
                         <div class="product-sizes">
                             <div class="size-option">
                                 <input type="radio" id="fox-400" name="fox-size" value="400" checked>
@@ -100,7 +105,7 @@
                         <button class="add-to-cart" data-product="ESPECIAL FOX">ADICIONAR AO CARRINHO</button>
                     </div>
                 </div>
-                
+
                 <!-- Produto 3 -->
                 <div class="product-card">
                     <div class="product-image">
@@ -108,7 +113,8 @@
                     </div>
                     <div class="product-info">
                         <h3>ESPECIAL BOMBOM</h3>
-                        <p class="product-description">Açaí cremoso com leite Ninho, bombom e cobertura de leite condensado.</p>
+                        <p class="product-description">Açaí cremoso com leite Ninho, bombom e cobertura de leite
+                            condensado.</p>
                         <div class="product-sizes">
                             <div class="size-option">
                                 <input type="radio" id="bombom-400" name="bombom-size" value="400" checked>
@@ -122,7 +128,7 @@
                         <button class="add-to-cart" data-product="ESPECIAL BOMBOM">ADICIONAR AO CARRINHO</button>
                     </div>
                 </div>
-                
+
                 <!-- Produto 4 -->
                 <div class="product-card">
                     <div class="product-image">
@@ -130,7 +136,8 @@
                     </div>
                     <div class="product-info">
                         <h3>ESPECIAL TRUFADO</h3>
-                        <p class="product-description">Açaí com creme de Ninho trufado, pedaços de chocolate e morango.</p>
+                        <p class="product-description">Açaí com creme de Ninho trufado, pedaços de chocolate e morango
+                            com leite condensado.</p>
                         <div class="product-sizes">
                             <div class="size-option">
                                 <input type="radio" id="trufado-400" name="trufado-size" value="400" checked>
@@ -144,8 +151,8 @@
                         <button class="add-to-cart" data-product="ESPECIAL TRUFADO">ADICIONAR AO CARRINHO</button>
                     </div>
                 </div>
-                
-              
+
+
             </div>
         </div>
     </section>
@@ -154,7 +161,7 @@
         <div class="container">
             <h2 class="section-title">PERSONALIZE <span>SEU AÇAÍ</span></h2>
             <p class="section-subtitle">Crie seu açaí do jeito que você gosta</p>
-            
+
             <div class="custom-form">
                 <div class="form-group">
                     <label for="size" id="custumizarTamanhos">Tamanho:</label>
@@ -165,33 +172,38 @@
                         <option value="700">Copo Açai 700ml - R$22,00</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label id="custumizarTamanhos">Cremes:</label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" name="Creme" value="Açai Tradicional" checked>Açai Tradicional</label>
+                        <label><input type="checkbox" name="Creme" value="Açai Tradicional" checked>Açai
+                            Tradicional</label>
                         <label><input type="checkbox" name="Creme" value="Ninho">Ninho</label>
                         <label><input type="checkbox" name="Creme" value="Ninho Trunfado"> Ninho Trinfado</label>
                         <label><input type="checkbox" name="Creme" value="Chocomalte"> Chocomalte</label>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label id="custumizarTamanhos">Acompanhamento Grátis:</label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Leite em pó">Leite em pó</label>
-                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Farinha Láctea">Farinha Láctea</label>
-                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Flocos de Arroz">Flocos de Arroz</label>
+                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Leite em pó">Leite em
+                            pó</label>
+                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Farinha Láctea">Farinha
+                            Láctea</label>
+                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Flocos de Arroz">Flocos de
+                            Arroz</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="M&M">M&M</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Chocopower">ChocoPower</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Paçoca">Paçoca</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Granulado">Granulado</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Coco">Coco</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Amendoim">Amendoim</label>
-                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Gota de Chocolate">Gota de Chocolate</label>
+                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Gota de Chocolate">Gota de
+                            Chocolate</label>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label id="custumizarTamanhos">Frutas:</label>
                     <div class="checkbox-group">
@@ -201,7 +213,7 @@
                         <label><input type="checkbox" name="fruta" value="Coco"> Coco</label>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label id="custumizarTamanhos">Adicionais:</label>
                     <div class="checkbox-group">
@@ -211,25 +223,27 @@
                         <label><input type="checkbox" name="extra" value="Kit Kat"> Kit Kat (+R$3,00)</label>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="observations">Observações:</label>
                     <textarea id="observations" placeholder="Alguma observação especial?"></textarea>
                 </div>
-                
+
                 <button id="add-custom-to-cart" class="btn">ADICIONAR AO CARRINHO</button>
             </div>
         </div>
     </section>
 
-<hr>
+    <hr>
 
     <section class="about" id="about">
         <div class="container">
             <div class="about-content">
                 <h2 class="section-title">SOBRE <span>NÓS</span></h2>
-                <p>Somos a Fox Açaí, especialistas em açaí gourmet desde 2018. Nossa missão é trazer os melhores sabores e combinações para você que ama açaí de qualidade.</p>
-                <p>Todos os nossos produtos são feitos com açaí 100% natural e ingredientes selecionados para garantir o melhor sabor e experiência.</p>
+                <p>Somos a Fox Açaí, especialistas em açaí gourmet desde 2018. Nossa missão é trazer os melhores sabores
+                    e combinações para você que ama açaí de qualidade.</p>
+                <p>Todos os nossos produtos são feitos com açaí 100% natural e ingredientes selecionados para garantir o
+                    melhor sabor e experiência.</p>
                 <div class="about-highlights">
                     <div class="highlight">
                         <i class="fas fa-leaf"></i>
@@ -250,7 +264,7 @@
             </div>
         </div>
     </section>
-<hr>
+    <hr>
     <section class="contact" id="contact">
         <div class="container">
             <h2 class="section-title">ENTRE EM <span>CONTATO</span></h2>
@@ -306,18 +320,54 @@
             </div>
         </div>
     </div>
+    <!-- Modal de informações do cliente -->
+    <div class="customer-info-modal">
+        <div class="customer-info-content">
+            <div class="customer-info-header">
+                <h3>INFORMAÇÕES PARA ENTREGA</h3>
+                <span class="close-customer-info">&times;</span>
+            </div>
+            <form id="customer-info-form">
+                <div class="form-group">
+                    <label for="customer-name">Nome*</label>
+                    <input type="text" id="customer-name" required placeholder="Digite seu nome...">
+                </div>
+                <div class="form-group">
+                    <label for="customer-address">Endereço Completo*</label>
+                    <input type="text" id="customer-address" required placeholder="Digite seu endereço...">
+                </div>
+                <div class="form-group">
+                    <label for="customer-neighborhood">Bairro*</label>
+                    <input type="text" id="customer-neighborhood" required placeholder="Digite seu bairro...">
+                </div>
+                <div class="form-group">
+                    <label>Forma de Pagamento*</label>
+                    <div class="payment-options">
+                        <label><input type="radio" name="payment" value="PIX" required> PIX</label>
+                        <label><input type="radio" name="payment" value="Dinheiro"> Dinheiro</label>
+                        <label><input type="radio" name="payment" value="Cartão"> Cartão</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customer-notes">Observações</label>
+                    <textarea id="customer-notes" placeholder="Alguma informação adicional..."></textarea>
+                </div>
+                <button type="submit" class="btn">ENVIAR PEDIDO</button>
+            </form>
+        </div>
+    </div>
 
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
                     <div class="logo-fox-footer">
-                    <img src="imagens/fox (4).png" alt="">
-                    <hr>
-                    <div class="fox-footer">
-                    <h2>FOX <span>AÇAÍ</span></h2>
-                    <p>O melhor açai da cidade!</p>
-                    </div>
+                        <img src="imagens/fox (4).png" alt="">
+                        <hr>
+                        <div class="fox-footer">
+                            <h2>FOX <span>AÇAÍ</span></h2>
+                            <p>O melhor açai da cidade!</p>
+                        </div>
                     </div>
                 </div>
                 <div class="footer-links">
@@ -345,4 +395,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

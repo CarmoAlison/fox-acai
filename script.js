@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const basePrice = getCustomBasePrice(size);
         
         // Get selected options
-        const borda = document.querySelector('input[name="borda"]:checked').value;
-        const cremes = Array.from(document.querySelectorAll('input[name="creme"]:checked')).map(el => el.value);
+        const cremes = Array.from(document.querySelectorAll('input[name="Creme"]:checked')).map(el => el.value);
+        const acompanhamentos = Array.from(document.querySelectorAll('input[name="AcompanhamentoGratis"]:checked')).map(el => el.value);
         const frutas = Array.from(document.querySelectorAll('input[name="fruta"]:checked')).map(el => el.value);
         const extras = Array.from(document.querySelectorAll('input[name="extra"]:checked')).map(el => el.value);
         const observations = document.getElementById('observations').value;
@@ -69,36 +69,29 @@ document.addEventListener('DOMContentLoaded', function() {
         let totalPrice = basePrice;
         let description = `Açaí Personalizado (${sizeText})`;
         
-        // Add border price if selected
-        if (borda !== "Sem borda") {
-            const borderPrice = getBorderPrice(borda);
-            totalPrice += borderPrice;
-            description += `, Borda: ${borda}`;
-        }
-        
         // Add creams
         if (cremes.length > 0) {
-            const creamPrice = cremes.length * 3; // Assuming each cream adds R$3
-            totalPrice += creamPrice;
-            description += `, Cremes: ${cremes.join(';')}`;
+            description += `, Cremes: ${cremes.join('; ')}`;
+        }
+        
+        // Add free accompaniments
+        if (acompanhamentos.length > 0) {
+            description += `, Acompanhamentos: ${acompanhamentos.join('; ')}`;
         }
         
         // Add fruits
         if (frutas.length > 0) {
-            const fruitPrice = frutas.reduce((acc, fruit) => {
-                return acc + (fruit === "Banana" ? 2 : 3); // Banana is R$2, others R$3
-            }, 0);
-            totalPrice += fruitPrice;
             description += `, Frutas: ${frutas.join('; ')}`;
         }
         
         // Add extras
         if (extras.length > 0) {
-            const extraPrice = extras.reduce((acc, extra) => {
-                return acc + (extra === "Granola" || extra === "Leite Condensado" ? 2 : 
-                            extra === "Paçoca" ? 3 : 4); // Different prices for extras
-            }, 0);
-            totalPrice += extraPrice;
+            extras.forEach(extra => {
+                if (extra === "Nutella") totalPrice += 3.5;
+                if (extra === "Oreo") totalPrice += 2;
+                if (extra === "Batom") totalPrice += 2;
+                if (extra === "Kit Kat") totalPrice += 3;
+            });
             description += `, Extras: ${extras.join('; ')}`;
         }
         
@@ -127,15 +120,45 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCartCount();
     });
     
-    // Checkout - Send to WhatsApp
+    // Checkout - Show customer info modal
     checkoutBtn.addEventListener('click', function() {
         if (cart.length === 0) {
             alert('Seu carrinho está vazio!');
             return;
         }
         
-        const phoneNumber = "5584996002433"; // Replace with your WhatsApp number
-        let message = "Olá, gostaria de fazer um pedido:\n\n";
+        // Show customer info modal
+        const customerInfoModal = document.querySelector('.customer-info-modal');
+        customerInfoModal.classList.add('active');
+        overlay.classList.add('active');
+        
+        // Close modal
+        document.querySelector('.close-customer-info').addEventListener('click', function() {
+            customerInfoModal.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+    });
+    
+    // Form submission for customer info
+    document.getElementById('customer-info-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get customer info
+        const name = document.getElementById('customer-name').value;
+        const address = document.getElementById('customer-address').value;
+        const neighborhood = document.getElementById('customer-neighborhood').value;
+        const payment = document.querySelector('input[name="payment"]:checked').value;
+        const notes = document.getElementById('customer-notes').value;
+        
+        // Prepare WhatsApp message
+        const phoneNumber = "5584996002433";
+        let message = `*NOVO PEDIDO - FOX AÇAÍ*\n`;
+        message += `Quero meu açaí! Faço meu pedido pelo site foxacai.com.br e conto com seu atendimento especial!\n\n`;
+        message += `*Cliente:* ${name}\n`;
+        message += `*Endereço:* ${address}\n`;
+        message += `*Bairro:* ${neighborhood}\n`;
+        message += `*Pagamento:* ${payment}\n\n`;
+        message += `*ITENS DO PEDIDO:*\n\n`;
         
         cart.forEach((item, index) => {
             message += `*${index + 1}. ${item.name} (${item.size})* - R$${item.price.toFixed(2)}\n`;
@@ -146,9 +169,29 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         const total = cart.reduce((sum, item) => sum + item.price, 0);
-        message += `*TOTAL: R$${total.toFixed(2)}*`;
-        message += "\n\n*Informações de entrega:*\nNome:\nEndereço:\nComplemento:\nForma de pagamento:";
+        message += `*TOTAL: R$${total.toFixed(2)}*\n\n`;
         
+        if (notes.trim() !== '') {
+            message += `*Observações:* ${notes}\n\n`;
+        }
+        
+        message += `*Obrigado pelo pedido!*`;
+        
+        // Close modals
+        document.querySelector('.customer-info-modal').classList.remove('active');
+        cartModal.classList.remove('active');
+        overlay.classList.remove('active');
+        
+        // Clear form
+        document.getElementById('customer-info-form').reset();
+        
+        // Clear cart
+        cart = [];
+        saveCart();
+        renderCartItems();
+        updateCartCount();
+        
+        // Open WhatsApp
         const encodedMessage = encodeURIComponent(message);
         window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
     });
@@ -234,15 +277,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const sizeInt = parseInt(size);
         
         switch(productName) {
-            case 'COPO NIX':
-            case 'COPO FOX':
-            case 'BOMBOM':
-            case 'TRUFADO':
+            case 'ESPECIAL NIX':
+            case 'ESPECIAL FOX':
+            case 'ESPECIAL BOMBOM':
+            case 'ESPECIAL TRUFADO':
                 return sizeInt === 400 ? 24.00 : 32.00;
-            case 'COPO RAPOSA':
-                return 28.00;
-            case 'COPO ZERO':
-                return 20.00;
             default:
                 return 25.00;
         }
@@ -251,26 +290,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function getCustomBasePrice(size) {
         switch(size) {
             case '300':
-                return 18.00;
+                return 10.00;
             case '400':
-                return 22.00;
+                return 14.00;
             case '500':
-                return 28.00;
-            default:
+                return 17.00;
+            case '700':
                 return 22.00;
-        }
-    }
-    
-    function getBorderPrice(borda) {
-        switch(borda) {
-            case 'Nutella':
-                return 4.00;
-            case 'Doce de Leite':
-                return 3.50;
-            case 'Leite em Pó':
-                return 2.50;
             default:
-                return 0;
+                return 14.00;
         }
     }
     
@@ -321,6 +349,79 @@ document.addEventListener('DOMContentLoaded', function() {
             text-align: center;
             color: var(--gray-color);
             padding: 20px 0;
+        }
+        
+        /* Estilos para o modal de informações do cliente */
+        .customer-info-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 4000;
+        }
+        
+        .customer-info-modal.active {
+            display: flex;
+        }
+        
+        .customer-info-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .customer-info-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .customer-info-header h3 {
+            color: var(--primary-color);
+            margin: 0;
+        }
+        
+        .close-customer-info {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .payment-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .payment-options label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 2000;
+        }
+        
+        .overlay.active {
+            display: block;
         }
     `;
     document.head.appendChild(style);
