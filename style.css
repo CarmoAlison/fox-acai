@@ -540,9 +540,14 @@ nav ul li a:hover {
     max-width: 800px;
     margin: 0 auto;
     background-color: var(--white-color);
-    padding: 30px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 7px solid #ffffff;
+}
+
+.custom-form img{
+    width: 100%;
+    border-radius: 20px 20px 0 0;
 }
 
 
