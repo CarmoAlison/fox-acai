@@ -561,6 +561,7 @@ nav ul li a:hover {
     background: linear-gradient(#000000, #5B2690);
     position: relative;
     overflow: hidden;
+ 
 }
 
 .custom-acai::before {
@@ -605,8 +606,13 @@ nav ul li a:hover {
 
 
 .form-group {
-    margin-bottom: 25px;
+    margin-bottom:10px;
+    font-size: 20px;
+    color: #5b2690;
+    font-weight: 900;
 }
+
+
 
 .form-group label {
     display: block;
@@ -778,7 +784,7 @@ nav ul li a:hover {
 /* Contact Section */
 .contact {
     padding: 80px 0;
-    background-color: #5b2690;
+    background: linear-gradient(#5b2690, #000000);
 }
 
 .contact-content {
@@ -789,11 +795,14 @@ nav ul li a:hover {
 }
 
 .contact-info {
-    background-color: var(--white-color);
+    background-color: #e6d12e;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
+}
+.contact-info img {
+    width: 100px;
 }
 
 .contact-info:hover {
@@ -801,32 +810,54 @@ nav ul li a:hover {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
+.logo-contact{
+    display: flex;
+    padding: 10px;
+}
+
+.logo-contact h1{
+    color: #ffffff;
+    padding: 10px;
+    font-size: 50px;
+}
+
+.logo-contact span{
+    color: #5b2690;
+}
+
+.logo-contact hr{
+    border: none;
+    width: 3px;
+    background-color: #ffffff;
+}
+
+.logo-contact h5{
+    color: #5b2690;
+    margin-top: -30px;
+    font-size: 17px;
+    padding: 10px;
+}
+
 .contact-info h3 {
     margin-bottom: 20px;
-    color: var(--primary-color);
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 20px;
     position: relative;
     display: inline-block;
+    background-color: #5b2690;
 }
 
-.contact-info h3::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background: var(--primary-color);
-    transition: width 0.3s ease;
-}
 
-.contact-info:hover h3::after {
-    width: 100%;
-}
 
 .contact-info p {
     margin-bottom: 15px;
     display: flex;
     align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 20px;
+    width: 100%;
 }
 
 .contact-info a {
@@ -908,8 +939,9 @@ nav ul li a:hover {
 
 .social-media img {
     width: 50px;
-    background-color: #5b2690;
-    padding: 10px;
+    background-color: #ffffff;
+    padding: 5px;
+    border: 3px solid #5b2690;
     border-radius: 50px;
     transition: transform 0.3s ease;
 }
@@ -919,7 +951,7 @@ nav ul li a:hover {
 }
 
 .contact-form {
-    background-color: var(--white-color);
+    background-color: #e6d12e;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
@@ -936,7 +968,7 @@ nav ul li a:hover {
     padding: 12px 15px;
     margin-bottom: 15px;
     border: 1px solid var(--light-gray);
-    border-radius: 5px;
+    border-radius: 20px;
     font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     transition: all 0.3s ease;
@@ -1315,7 +1347,17 @@ footer::before {
 }
 
 @media (max-width: 768px) {
+    .logo-contact img{
+        width: 90px;
+    }
 
+    .logo-contact h1{
+        font-size: 30px;
+    }
+
+    .logo-contact h5{
+        font-size: 15px;
+    }
     nav ul {
         margin-top: 20px;
         display: none;
