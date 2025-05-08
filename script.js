@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const notes = document.getElementById('customer-notes').value;
         
         // Prepare WhatsApp message
-        const phoneNumber = "5584996002433";
+        const phoneNumber = "5584996720476";
         let message = `*NOVO PEDIDO - FOX AÇAÍ*\n`;
         message += `Quero meu açaí! Faço meu pedido pelo site foxacai.com.br e conto com seu atendimento especial!\n\n`;
         message += `*Cliente:* ${name}\n`;
