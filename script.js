@@ -67,21 +67,21 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Calculate total price
         let totalPrice = basePrice;
-        let description = `Açaí Personalizado (${sizeText})`;
+        let description = `*_Açaí Personalizado_* (${sizeText})\n`;
         
         // Add creams
         if (cremes.length > 0) {
-            description += `, Cremes: ${cremes.join('; ')}`;
+            description += `*_Cremes:_* \n${cremes.join('; ')}`;
         }
         
         // Add free accompaniments
         if (acompanhamentos.length > 0) {
-            description += `, Acompanhamentos: ${acompanhamentos.join('; ')}`;
+            description += `\n *_Acompanhamentos:_* \n${acompanhamentos.join('; ')}`;
         }
         
         // Add fruits
         if (frutas.length > 0) {
-            description += `, Frutas: ${frutas.join('; ')}`;
+            description += `\n*_Frutas:_* \n${frutas.join('; ')}`;
         }
         
         // Add extras
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (extra === "Batom") totalPrice += 2;
                 if (extra === "Kit Kat") totalPrice += 3;
             });
-            description += `, Extras: ${extras.join('; ')}`;
+            description += `\n*_Extras:_*\n ${extras.join('; ')}`;
         }
         
         // Add observations if any
