@@ -1569,6 +1569,7 @@ footer::before {
     display: flex;
     align-items: center;
     gap: 10px;
+    -webkit-appearance: none; 
 }
 
 .customer-info-modal input {
