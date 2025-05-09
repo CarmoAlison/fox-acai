@@ -420,20 +420,25 @@ nav ul li a:hover {
     position: relative;
     opacity: 0;
     animation: fadeInUp 0.5s ease-out forwards;
-    height: 100%; /* Remove a altura fixa (600px) */
-    display: flex; /* Ativa flexbox */
-    flex-direction: column; /* Organiza os itens verticalmente */
+    height: 100%;
+    /* Remove a altura fixa (600px) */
+    display: flex;
+    /* Ativa flexbox */
+    flex-direction: column;
+    /* Organiza os itens verticalmente */
 }
 
 .product-info {
     padding: 15px;
-    flex-grow: 1; /* Faz o .product-info ocupar todo o espaço disponível */
+    flex-grow: 1;
+    /* Faz o .product-info ocupar todo o espaço disponível */
     display: flex;
     flex-direction: column;
 }
 
 .add-to-cart {
-    margin-top: auto; /* Empurra o botão para o final do card */
+    margin-top: auto;
+    /* Empurra o botão para o final do card */
     padding: 10px 20px;
     background-color: #ff6b6b;
     color: white;
@@ -447,6 +452,7 @@ nav ul li a:hover {
 .add-to-cart:hover {
     background-color: #ff5252;
 }
+
 /* Animação sequencial para os cards */
 .product-card:nth-child(1) {
     animation-delay: 0.1s;
@@ -586,7 +592,7 @@ nav ul li a:hover {
     background: linear-gradient(#000000, #5B2690);
     position: relative;
     overflow: hidden;
- 
+
 }
 
 .custom-acai::before {
@@ -631,7 +637,7 @@ nav ul li a:hover {
 
 
 .form-group {
-    margin-bottom:10px;
+    margin-bottom: 10px;
     font-size: 20px;
     color: #5b2690;
     font-weight: 900;
@@ -826,6 +832,7 @@ nav ul li a:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
 }
+
 .contact-info img {
     width: 100px;
 }
@@ -835,28 +842,28 @@ nav ul li a:hover {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
-.logo-contact{
+.logo-contact {
     display: flex;
     padding: 10px;
 }
 
-.logo-contact h1{
+.logo-contact h1 {
     color: #ffffff;
     padding: 10px;
     font-size: 50px;
 }
 
-.logo-contact span{
+.logo-contact span {
     color: #5b2690;
 }
 
-.logo-contact hr{
+.logo-contact hr {
     border: none;
     width: 3px;
     background-color: #ffffff;
 }
 
-.logo-contact h5{
+.logo-contact h5 {
     color: #5b2690;
     margin-top: -30px;
     font-size: 17px;
@@ -1372,17 +1379,18 @@ footer::before {
 }
 
 @media (max-width: 768px) {
-    .logo-contact img{
+    .logo-contact img {
         width: 90px;
     }
 
-    .logo-contact h1{
+    .logo-contact h1 {
         font-size: 30px;
     }
 
-    .logo-contact h5{
+    .logo-contact h5 {
         font-size: 15px;
     }
+
     nav ul {
         margin-top: 20px;
         display: none;
@@ -1482,15 +1490,17 @@ footer::before {
         padding: 10px;
     }
 
-    .payment-options{
+    .payment-options {
         display: block;
-        
     }
-    .payment-options label{
-        width:40%;
-        display: flex;
+
+    .payment-options label {
+        width: 50%;
+        border: .2px solid #5b2690;
+        padding: 10px;
+        border-radius: 20px;
     }
-    
+
 }
 
 
@@ -1547,9 +1557,10 @@ footer::before {
 }
 
 .payment-options label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    width: 40%;
+    border: .2px solid #5b2690;
+    padding: 10px;
+    border-radius: 20px;
 }
 
 .customer-info-modal input {
@@ -1617,24 +1628,25 @@ footer::before {
         right: 20px;
         font-size: 25px;
     }
-    .img-catalogo{
+
+    .img-catalogo {
         display: none;
     }
 
-    .form-group label{
+    .form-group label {
         font-size: 17px;
     }
 
-    .container1{
+    .container1 {
         flex-wrap: wrap;
     }
 
-    
-    
+
+
 }
 
 @media (min-width: 768px) {
-    .img-catalogo2{
+    .img-catalogo2 {
         display: none;
     }
 }
@@ -1646,6 +1658,7 @@ footer::before {
     background-size: cover;
     margin-bottom: 10px;
 }
+
 .img-catalogo2 {
     background-image: url(imagens/catalogo2.png);
     width: 100%;
@@ -1654,12 +1667,12 @@ footer::before {
     margin-bottom: 10px;
 }
 
-.form-group label{
+.form-group label {
     font-size: 17px;
     color: #5b2690;
 }
 
-.container1{
+.container1 {
     display: flex;
     padding: 20px;
     max-width: 1800px;
@@ -1667,62 +1680,63 @@ footer::before {
     margin: auto;
 }
 
-.container2{
+.container2 {
     gap: 20px;
 }
 
-.container2 img{
+.container2 img {
     width: 100px;
 
 }
 
-.logoExcelencia{
+.logoExcelencia {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
-.logoExcelencia span{
+.logoExcelencia span {
     color: #0178a7;
 }
 
-.logoExcelencia p{
+.logoExcelencia p {
     margin-top: -12px;
     color: #0178a7;
     font-size: 20px;
 }
-.logoExcelencia h1{
+
+.logoExcelencia h1 {
     font-size: 25px;
 }
 
-.logoExcelencia hr{
+.logoExcelencia hr {
     border: none;
     background-color: #ffffff;
     height: 50px;
     width: 2px;
 }
 
-.redes-sociais-excelencia{
+.redes-sociais-excelencia {
     display: flex;
     gap: 20px;
     padding: 10px;
 }
 
-.redes-sociais-excelencia img{
+.redes-sociais-excelencia img {
     width: 30px;
     background-color: #ffffff;
     border-radius: 50%;
 }
 
-.informa-excelencia{
+.informa-excelencia {
     padding: 10px;
 }
 
-.informa-excelencia h4{
+.informa-excelencia h4 {
     text-align: center;
 }
 
-.informa-excelencia hr{
+.informa-excelencia hr {
     margin-bottom: 10px;
 }
