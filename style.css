@@ -1490,17 +1490,20 @@ footer::before {
         padding: 10px;
     }
 
-    .payment-options {
-        display: block;
-    }
+}
 
+/* Para telas maiores que 480px */
+@media (min-width: 480px) {
     .payment-options label {
-        width: 50%;
-        border: .2px solid #5b2690;
-        padding: 10px;
-        border-radius: 20px;
+        flex: 1 1 calc(30% - 15px); /* Dois itens por linha com gap */
     }
+}
 
+/* Para telas maiores que 768px */
+@media (min-width: 768px) {
+    .payment-options label {
+        flex: 1 1 calc(33.333% - 15px); /* Três itens por linha com gap */
+    }
 }
 
 
@@ -1557,10 +1560,12 @@ footer::before {
 }
 
 .payment-options label {
-    width: 40%;
-    border: .2px solid #5b2690;
+    flex: 1 1 100%; /* Ocupa toda a largura por padrão */
+    border: 0.2px solid #5b2690;
     padding: 10px;
     border-radius: 20px;
+    text-align: center;
+    box-sizing: border-box; /* Garante que padding não afete a largura */
 }
 
 .customer-info-modal input {
