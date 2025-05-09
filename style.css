@@ -1487,9 +1487,8 @@ footer::before {
         
     }
     .payment-options label{
-        width:50%;
+        width:30%;
         display: flex;
-        justify-content: left;
     }
     
 }
