@@ -1495,8 +1495,8 @@ footer::before {
 /* Para CELULARES (menos de 768px) - 30% */
 @media (max-width: 767px) {
     .payment-options label {
-        width: 50%; /* Largura para mobile */
-        flex: 0 0 30%; /* Não cresce, não encolhe, largura fixa */
+        width: 100%; /* Largura para mobile */
+        flex: 0 1 50%; /* Não cresce, não encolhe, largura fixa */
     }
 }
 
