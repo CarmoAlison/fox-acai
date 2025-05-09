@@ -1481,6 +1481,16 @@ footer::before {
     header {
         padding: 10px;
     }
+
+    .payment-options{
+        display: block;
+        
+    }
+    .payment-options label{
+        width:50%;
+        display: flex;
+        justify-content: left;
+    }
     
 }
 
@@ -1620,6 +1630,7 @@ footer::before {
         flex-wrap: wrap;
     }
 
+    
     
 }
 
