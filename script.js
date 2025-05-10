@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.appendChild(overlay);
     
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let deliveryFee = 0; // Variável para armazenar a taxa de entrega
     
     // Toggle cart modal
     cartIcon.addEventListener('click', function() {
@@ -65,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const extras = Array.from(document.querySelectorAll('input[name="extra"]:checked')).map(el => el.value);
         const observations = document.getElementById('observations').value;
         
-        // Calculate total price
+        // Calculate total price (sem taxa de entrega aqui)
         let totalPrice = basePrice;
         let description = `*_Açaí Personalizado_* (${sizeText})\n`;
         
@@ -115,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Clear cart
     clearCartBtn.addEventListener('click', function() {
         cart = [];
+        deliveryFee = 0;
         saveCart();
         renderCartItems();
         updateCartCount();
@@ -148,7 +150,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const address = document.getElementById('customer-address').value;
         const neighborhood = document.getElementById('customer-neighborhood').value;
         const payment = document.querySelector('input[name="payment"]:checked').value;
+        const deliveryOption = document.querySelector('input[name="entrega"]:checked').value;
         const notes = document.getElementById('customer-notes').value;
+        
+        // Calculate delivery fee based on selected option
+        deliveryFee = 0;
+        if (deliveryOption === "Macau") deliveryFee = 2;
+        if (deliveryOption === "I ilha") deliveryFee = 7;
+        if (deliveryOption === "II ilha") deliveryFee = 10;
         
         // Prepare WhatsApp message
         const phoneNumber = "5584996720476";
@@ -158,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
         message += `*Endereço:* ${address}\n`;
         message += `*Bairro:* ${neighborhood}\n`;
         message += `*Pagamento:* ${payment}\n\n`;
+        message += `*Local da entrega:* ${deliveryOption}\n\n`;
         message += `*ITENS DO PEDIDO:*\n\n`;
         
         cart.forEach((item, index) => {
@@ -168,7 +178,14 @@ document.addEventListener('DOMContentLoaded', function() {
             message += "\n";
         });
         
-        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+        const total = subtotal + deliveryFee;
+        
+        // Add delivery fee to message if applicable
+        if (deliveryFee > 0) {
+            message += `*Taxa de entrega: R$${deliveryFee.toFixed(2)}*\n`;
+        }
+        
         message += `*TOTAL: R$${total.toFixed(2)}*\n\n`;
         
         if (notes.trim() !== '') {
@@ -187,6 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Clear cart
         cart = [];
+        deliveryFee = 0;
         saveCart();
         renderCartItems();
         updateCartCount();
@@ -244,9 +262,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Update total
-        const total = cart.reduce((sum, item) => sum + item.price, 0);
-        cartTotal.textContent = `R$${total.toFixed(2)}`;
+        // Update total (sem taxa de entrega aqui - será mostrada apenas no checkout)
+        const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+        cartTotal.textContent = `R$${subtotal.toFixed(2)}`;
     }
     
     function updateCartCount() {
@@ -404,6 +422,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         .payment-options label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .payment-entrega {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .payment-entrega label {
             display: flex;
             align-items: center;
             gap: 5px;
