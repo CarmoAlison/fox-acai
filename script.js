@@ -141,9 +141,60 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Função para verificar se está no horário de funcionamento
+    function isWithinBusinessHours() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        
+        // Horário de funcionamento: 22:30 às 3:00
+        // Verifica se está entre 22:30 e 23:59 ou entre 0:00 e 3:00
+        return (hours >= 22 && minutes >= 30) || // Depois das 22:30
+               (hours >= 0 && hours < 3) ||    // Entre meia-noite e 3:00
+               (hours === 3 && minutes === 0);  // Exatamente 3:00
+    }
+    
+    // Função para mostrar mensagem de horário fechado
+    function showClosedHoursMessage() {
+        const message = document.createElement('div');
+        message.classList.add('closed-hours-message');
+        message.innerHTML = `
+            <div class="closed-hours-content">
+                <img src="imagens/1.png" alt="" id="imagemencerramento">
+                <h3>Pedidos apenas das 22:30h às 3:00h</h3>
+                <p>Segunda-feira a Domingo - folgamos apenas na terça-feira</p>
+                <p>No momento não estamos aceitando pedidos. Por favor, volte no horário de funcionamento.</p>
+                <button class="close-closed-hours-message">OK</button>
+            </div>
+        `;
+        document.body.appendChild(message);
+        
+        setTimeout(() => {
+            message.classList.add('show');
+        }, 10);
+        
+        // Fechar a mensagem quando clicar no botão OK
+        document.querySelector('.close-closed-hours-message').addEventListener('click', function() {
+            message.classList.remove('show');
+            setTimeout(() => {
+                message.remove();
+            }, 300);
+        });
+    }
+    
     // Form submission for customer info
     document.getElementById('customer-info-form').addEventListener('submit', function(e) {
         e.preventDefault();
+        
+        // Verificar horário antes de processar o pedido
+        if (!isWithinBusinessHours()) {
+            showClosedHoursMessage();
+            
+            // Fechar o modal de informações do cliente
+            document.querySelector('.customer-info-modal').classList.remove('active');
+            overlay.classList.remove('active');
+            return;
+        }
         
         // Get customer info
         const name = document.getElementById('customer-name').value;
@@ -341,7 +392,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Add cart message style
+    // Add styles
     const style = document.createElement('style');
     style.textContent = `
         .cart-message {
@@ -453,6 +504,60 @@ document.addEventListener('DOMContentLoaded', function() {
         
         .overlay.active {
             display: block;
+        }
+        
+        /* Estilos para a mensagem de horário fechado */
+        .closed-hours-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 5000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .closed-hours-message.show {
+            opacity: 1;
+        }
+        
+        .closed-hours-content {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .closed-hours-content h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        .closed-hours-content p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .closed-hours-content button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .closed-hours-content button:hover {
+            background-color: #d35400;
         }
     `;
     document.head.appendChild(style);
