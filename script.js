@@ -459,3 +459,107 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 });
+
+// Verifica horário de Brasília (UTC-3)
+function isWithinOrderTime() {
+    const now = new Date();
+    const brasiliaTime = new Date(now.getTime() - (now.getTimezoneOffset() * 60000) + (-3 * 3600000));
+    const hours = brasiliaTime.getHours();
+    const minutes = brasiliaTime.getMinutes();
+    return (hours > 22 || (hours === 22 && minutes >= 30)) || (hours < 3 || (hours === 3 && minutes <= 30));
+}
+
+// Fecha todos os modais
+function forceCloseCart() {
+    document.querySelector('.cart-modal')?.classList.remove('active');
+    document.querySelector('.overlay')?.classList.remove('active');
+    document.querySelector('.customer-info-modal')?.classList.remove('active');
+}
+
+// Cria mensagem estilizada com suas cores
+function showStyledTimeAlert() {
+    // Remove mensagens existentes primeiro
+    document.querySelector('.custom-time-alert')?.remove();
+    document.querySelector('.custom-time-overlay')?.remove();
+
+    // Cria overlay
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0,0,0,0.7)';
+    overlay.style.zIndex = '9998';
+    overlay.className = 'custom-time-overlay';
+    document.body.appendChild(overlay);
+
+    // Cria modal
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed';
+    modal.style.top = '50%';
+    modal.style.left = '50%';
+    modal.style.transform = 'translate(-50%, -50%)';
+    modal.style.backgroundColor = '#5B2690'; // Sua cor roxa
+    modal.style.color = '#FCE532'; // Sua cor amarela
+    modal.style.padding = '25px';
+    modal.style.borderRadius = '10px';
+    modal.style.textAlign = 'center';
+    modal.style.zIndex = '9999';
+    modal.style.maxWidth = '90%';
+    modal.style.width = '400px';
+    modal.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+    modal.className = 'custom-time-alert';
+
+    modal.innerHTML = `
+        <h3 style="margin-top:0;font-size:1.3em;">⏰ HORÁRIO RESTRITO</h3>
+        <p style="margin-bottom:20px;">Pedidos apenas das <strong>22:30h às 3:30h</strong><br>(horário de Brasília)</p>
+        <button style="background:#FCE532;color:#5B2690;border:none;padding:10px 25px;
+                      border-radius:20px;font-weight:bold;cursor:pointer;font-size:1em;">
+            OK, ENTENDI
+        </button>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Fecha tudo ao clicar no botão
+    modal.querySelector('button').addEventListener('click', function() {
+        forceCloseCart();
+        modal.remove();
+        overlay.remove();
+    });
+}
+
+// Aplica a restrição em todos os pontos
+function setupTimeRestriction() {
+    const restrictAction = (e) => {
+        if (!isWithinOrderTime()) {
+            e.preventDefault();
+            e.stopPropagation();
+            showStyledTimeAlert();
+            return false;
+        }
+    };
+
+    // Lista de elementos para bloquear
+    [
+        '.cart-icon', 
+        '.checkout', 
+        '#customer-info-form',
+        '.add-to-cart',
+        '#add-custom-to-cart'
+    ].forEach(selector => {
+        document.querySelectorAll(selector).forEach(element => {
+            element.addEventListener('click', restrictAction);
+        });
+    });
+
+    // Bloqueio especial para o formulário
+    const orderForm = document.getElementById('customer-info-form');
+    if (orderForm) {
+        orderForm.addEventListener('submit', restrictAction);
+    }
+}
+
+// Ativa quando a página carrega
+document.addEventListener('DOMContentLoaded', setupTimeRestriction);
