@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.appendChild(overlay);
     
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let deliveryFee = 0; // Variável para armazenar a taxa de entrega
-    
+    let deliveryFee = 0;
+
     // Toggle cart modal
     cartIcon.addEventListener('click', function() {
         cartModal.classList.add('active');
@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const extras = Array.from(document.querySelectorAll('input[name="extra"]:checked')).map(el => el.value);
         const observations = document.getElementById('observations').value;
         
-        // Calculate total price (sem taxa de entrega aqui)
         let totalPrice = basePrice;
         let description = `*_Açaí Personalizado_* (${sizeText})\n`;
         
@@ -96,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
             description += `\n*_Extras:_*\n ${extras.join('; ')}`;
         }
         
-        // Add observations if any
+        // Add observations
         if (observations.trim() !== '') {
             description += `, Obs: ${observations}`;
         }
@@ -117,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
     clearCartBtn.addEventListener('click', function() {
         cart = [];
         deliveryFee = 0;
+        localStorage.removeItem('originalCartBeforePromotion');
         saveCart();
         renderCartItems();
         updateCartCount();
@@ -129,12 +129,10 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Show customer info modal
         const customerInfoModal = document.querySelector('.customer-info-modal');
         customerInfoModal.classList.add('active');
         overlay.classList.add('active');
         
-        // Close modal
         document.querySelector('.close-customer-info').addEventListener('click', function() {
             customerInfoModal.classList.remove('active');
             overlay.classList.remove('active');
@@ -153,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const deliveryOption = document.querySelector('input[name="entrega"]:checked').value;
         const notes = document.getElementById('customer-notes').value;
         
-        // Calculate delivery fee based on selected option
+        // Calculate delivery fee
         deliveryFee = 0;
         if (deliveryOption === "Macau") deliveryFee = 2;
         if (deliveryOption === "I ilha") deliveryFee = 7;
@@ -169,22 +167,44 @@ document.addEventListener('DOMContentLoaded', function() {
         message += `*Pagamento:* ${payment}\n\n`;
         message += `*Local da entrega:* ${deliveryOption}\n\n`;
         message += `*ITENS DO PEDIDO:*\n\n`;
-        
-        cart.forEach((item, index) => {
-            message += `*${index + 1}. ${item.name} (${item.size})* - R$${item.price.toFixed(2)}\n`;
-            if (item.description) {
-                message += `${item.description}\n`;
-            }
-            message += "\n";
-        });
-        
-        const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
-        
-        // Verificar se é a promoção de 2 açaís 300ml
+
+        // Check for promotion
         const isPromotion = cart.length === 1 && cart[0].name === "Promoção 2 Açaís 300ml";
+
+        if (isPromotion) {
+            // Show promotion details
+            message += `*1. PROMOÇÃO: 2 Açaís 300ml* - R$18,90\n`;
+            message += `(Taxa de entrega grátis na promoção)\n\n`;
+            
+            // Get original items before promotion
+            const originalCart = JSON.parse(localStorage.getItem('originalCartBeforePromotion')) || [];
+            
+            if (originalCart.length === 2) {
+                originalCart.forEach((item, index) => {
+                    message += `*Açaí ${index + 1}:*\n`;
+                    if (item.description) {
+                        const formattedDesc = item.description.replace(/\*/g, '').replace(/_/g, '');
+                        message += `${formattedDesc}\n`;
+                    }
+                    message += "\n";
+                });
+            }
+        } else {
+            // Normal order
+            cart.forEach((item, index) => {
+                message += `*${index + 1}. ${item.name} (${item.size})* - R$${item.price.toFixed(2)}\n`;
+                if (item.description) {
+                    const formattedDesc = item.description.replace(/\*/g, '').replace(/_/g, '');
+                    message += `${formattedDesc}\n`;
+                }
+                message += "\n";
+            });
+        }
+
+        const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
         let total = subtotal;
-        
-        // Aplicar taxa de entrega apenas se não for a promoção
+
+        // Apply delivery fee if not promotion
         if (!isPromotion) {
             total = subtotal + deliveryFee;
             if (deliveryFee > 0) {
@@ -193,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             message += `*Taxa de entrega: Grátis (promoção)*\n`;
         }
-        
+
         message += `*TOTAL: R$${total.toFixed(2)}*\n\n`;
         
         if (notes.trim() !== '') {
@@ -213,6 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Clear cart
         cart = [];
         deliveryFee = 0;
+        localStorage.removeItem('originalCartBeforePromotion');
         saveCart();
         renderCartItems();
         updateCartCount();
@@ -241,7 +262,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Verificar promoção de 2 copos de 300ml
+        // Check for 2x 300ml promotion
         let hasPromotion = false;
         if (cart.length === 2) {
             const isTwo300mlCups = cart.every(item => 
@@ -252,15 +273,17 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (isTwo300mlCups) {
                 hasPromotion = true;
-                // Aplicar promoção
+                // Save original cart before applying promotion
+                localStorage.setItem('originalCartBeforePromotion', JSON.stringify(cart));
+                // Apply promotion
                 cart = [{
                     name: "Promoção 2 Açaís 300ml",
                     size: "300ml x2",
-                    price: 18.99,
+                    price: 18.90,
                     description: "Promoção: 2 Açaís 300ml por R$18,90 (taxa de entrega grátis)",
                     custom: true
                 }];
-                deliveryFee = 0; // Remove a taxa de entrega
+                deliveryFee = 0;
             }
         }
         
@@ -282,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
             cartItemsContainer.appendChild(cartItem);
         });
         
-        // Add event listeners to remove buttons (apenas se não estiver na promoção)
+        // Add remove buttons if not in promotion
         if (!hasPromotion) {
             document.querySelectorAll('.item-remove').forEach(button => {
                 button.addEventListener('click', function() {
@@ -402,7 +425,6 @@ document.addEventListener('DOMContentLoaded', function() {
             padding: 20px 0;
         }
         
-        /* Estilos para o modal de informações do cliente */
         .customer-info-modal {
             position: fixed;
             top: 0;
