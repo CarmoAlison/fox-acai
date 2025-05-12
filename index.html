@@ -45,12 +45,21 @@
 
         <section class="hero" id="home">
             <div class="container">
+                
                 <div class="hero-content">
                     <img src="imagens/2.png" alt="">
                     <h2>O <span>MELHOR AÇAÍ</span> DA CIDADE!</h2>
                     <p>Experimente nossa linha especial TOPZERA com ingredientes premium</p>
                     <a href="#products" class="btn">VER CARDÁPIO</a>
                 </div>
+                <div class="promocaodia">
+                        <a href="#custom">
+                        <h1>Promoção do dia!</h1>
+                        <P>DOIS copos de 300ml por R$18,90 + taxa de entrega GRÁTIS</P>
+                        <h5>Só hoje no dia das mães, aproveite!</h5>
+                        <h3>Clique aqui!</h3>
+                        </a>
+                    </div>
             </div>
         </section>
     </div>
@@ -64,22 +73,21 @@
 
             <div class="product-grid">
                 <!-- Produto 1 -->
-                <div class="product-card" >
-                    <!-- <div class="promocaodia">
-                        <h1>Promoção do dia!</h1>
-                    </div> -->
+                <div class="product-card">
+
                     <div class="product-image">
                         <img src="imagens/products/1.png" alt="Especial Nix">
                     </div>
                     <div class="product-info">
                         <h3>ESPECIAL MIX - BOMBOM</h3>
-                        <p class="product-description">Feito com borda de Nutella, leite Ninho, fundo de bombom, ouro branco picado, açaí e cobertura de leite condensado.</p>
+                        <p class="product-description">Feito com borda de Nutella, leite Ninho, fundo de bombom, ouro
+                            branco picado, açaí e cobertura de leite condensado.</p>
                         <div class="product-sizes">
                             <div class="size-option">
                                 <input type="radio" id="nix-400" name="nix-size" value="400" checked>
-                                <label for="nix-400" >400ml - R$25,00</label>
+                                <label for="nix-400">400ml - R$25,00</label>
                             </div>
- 
+
                         </div>
                         <button class="add-to-cart" data-product="ESPECIAL NIX">ADICIONAR AO CARRINHO</button>
                     </div>
@@ -92,7 +100,8 @@
                     </div>
                     <div class="product-info">
                         <h3>ESPECIAL FOX - TRUFADO</h3>
-                        <p class="product-description">Feito com borda de Nutella + açaí, creme de Ninho trufado, pedaços de
+                        <p class="product-description">Feito com borda de Nutella + açaí, creme de Ninho trufado,
+                            pedaços de
                             Kit Kat e morango, finalizado com mais nutekka e leite em pó.</p>
                         <div class="product-sizes">
                             <div class="size-option">
@@ -113,10 +122,11 @@
                     </div>
                     <div class="product-info">
                         <h3>ESPECIAL RAPOSA - CROCANTE</h3>
-                        <p class="product-description">Borda de doce de leite + acompanhado com ovomaltine e paçoca, açaí com flocos de arroz, finalizado com amendom e leite condensado.</p>
+                        <p class="product-description">Borda de doce de leite + acompanhado com ovomaltine e paçoca,
+                            açaí com flocos de arroz, finalizado com amendom e leite condensado.</p>
                         <div class="product-sizes">
                             <div class="size-option">
-                                <input type="radio" id="bombom-500" name="bombom-size" value="500"checked>
+                                <input type="radio" id="bombom-500" name="bombom-size" value="500" checked>
                                 <label for="bombom-500">500ml - R$28,00</label>
                             </div>
                         </div>
@@ -157,6 +167,11 @@
                 <div class="img-catalogo2"></div>
                 <div class="form-group">
                     <label for="size" id="custumizarTamanhos">Tamanho:</label>
+                    <div class="promocaodia">
+                        <h1>Promoção do dia!</h1>
+                        <P>DOIS copos de 300ml por R$18,90 + taxa de entrega GRÁTIS</P>
+                        <h5>Só hoje no dia das mães, aproveite!</h5>
+                    </div>
                     <select id="size">
                         <option value="300">Copo Açai 300ml - R$10,00</option>
                         <option value="400">Copo Açai 400ml - R$14,00</option>
@@ -382,8 +397,6 @@
         </div>
     </div>
 
-
-
     <footer>
         <div class="container1">
             <div class="container">
@@ -460,8 +473,8 @@
         // Configurações para cada tamanho
         const sizeConfig = {
             '300': { cremes: 2, acompanhamentos: 3, frutas: 1, cobertura: 1 },
-            '400': { cremes: 2, acompanhamentos: 3, frutas: 2, cobertura: 1},
-            '500': { cremes: 2, acompanhamentos: 5, frutas: 2, cobertura: 1},
+            '400': { cremes: 2, acompanhamentos: 3, frutas: 2, cobertura: 1 },
+            '500': { cremes: 2, acompanhamentos: 5, frutas: 2, cobertura: 1 },
             '700': { cremes: 2, acompanhamentos: 6, frutas: 3, cobertura: 1 }
         };
 
