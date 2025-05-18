@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'ESPECIAL TRUFADO':
                 return sizeInt === 400 ? 24.00 : 32.00;
             default:
-                return 39.00;
+                return 25.00;
         }
     }
     
