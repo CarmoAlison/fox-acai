@@ -155,11 +155,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Calculate delivery fee based on selected option
         deliveryFee = 0;
-        
-        // Aplicar taxa apenas para Ilha II e apenas se houver 2 ou mais pedidos
-        if (deliveryOption === "II ilha" && cart.length >= 2) {
-            deliveryFee = 10;
-        }
+        if (deliveryOption === "Macau") deliveryFee = 2;
+        if (deliveryOption === "I ilha") deliveryFee = 7;
+        if (deliveryOption === "II ilha") deliveryFee = 10;
         
         // Prepare WhatsApp message
         const phoneNumber = "5584996720476";
@@ -343,6 +341,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    
+    
     // Add styles
     const style = document.createElement('style');
     style.textContent = `
