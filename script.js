@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const acompanhamentos = Array.from(document.querySelectorAll('input[name="AcompanhamentoGratis"]:checked')).map(el => el.value);
         const frutas = Array.from(document.querySelectorAll('input[name="fruta"]:checked')).map(el => el.value);
         const extras = Array.from(document.querySelectorAll('input[name="extra"]:checked')).map(el => el.value);
+        const cobertura = Array.from(document.querySelectorAll('input[name="Cobertura"]:checked')).map(el => el.value);
         const observations = document.getElementById('observations').value;
 
         // Calculate total price
@@ -117,6 +118,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // Add fruits
         if (frutas.length > 0) {
             description += `\n*_Frutas:_* \n${frutas.join('; ')}`;
+        }
+        if (cobertura.length > 0) {
+            description += `\n*_Cobertura:_* \n${frutas.join('; ')}`;
         }
 
         // Add extras
