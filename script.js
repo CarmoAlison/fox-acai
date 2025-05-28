@@ -35,17 +35,39 @@ document.addEventListener('DOMContentLoaded', function() {
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const productCard = this.closest('.product-card');
             const productName = this.getAttribute('data-product');
-            const productSize = productCard.querySelector('input[name*="size"]:checked').value;
-            const productPrice = getProductPrice(productName, productSize);
+            const productPrice = parseFloat(this.getAttribute('data-price'));
             
-            addToCart({
-                name: productName,
-                size: productSize + 'ml',
-                price: productPrice,
-                custom: false
-            });
+            // Verifica se é um combo
+            if(productName.includes("Combo")) {
+                addToCart({
+                    name: productName,
+                    size: "", // Combos não têm tamanho selecionável
+                    price: productPrice,
+                    custom: false
+                });
+            } 
+            if(productName.includes("Salgado")) {
+                addToCart({
+                    name: productName,
+                    size: " ", // Combos não têm tamanho selecionável
+                    price: productPrice,
+                    custom: false
+                });
+            } 
+            else {
+                // Produtos normais (com tamanho)
+                const productCard = this.closest('.product-card');
+                const productSize = productCard.querySelector('input[name*="size"]:checked').value;
+                const productPrice = getProductPrice(productName, productSize);
+                
+                addToCart({
+                    name: productName,
+                    size: productSize + 'ml',
+                    price: productPrice,
+                    custom: false
+                });
+            }
             
             updateCartCount();
             showAddedToCartMessage(productName);
@@ -63,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const cremes = Array.from(document.querySelectorAll('input[name="Creme"]:checked')).map(el => el.value);
         const acompanhamentos = Array.from(document.querySelectorAll('input[name="AcompanhamentoGratis"]:checked')).map(el => el.value);
         const frutas = Array.from(document.querySelectorAll('input[name="fruta"]:checked')).map(el => el.value);
+        const cobertura = Array.from(document.querySelectorAll('input[name="Cobertura"]:checked')).map(el => el.value);
         const extras = Array.from(document.querySelectorAll('input[name="extra"]:checked')).map(el => el.value);
         const observations = document.getElementById('observations').value;
         
@@ -84,6 +107,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (frutas.length > 0) {
             description += `\n*_Frutas:_* \n${frutas.join('; ')}`;
         }
+        // Add Cobert
+        if (cobertura.length > 0) {
+            description += `\n*_Cobertura:_* \n${cobertura.join('; ')}`;
+        }
         
         // Add extras
         if (extras.length > 0) {
@@ -92,8 +119,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (extra === "Oreo") totalPrice += 2;
                 if (extra === "Batom") totalPrice += 2;
                 if (extra === "Kit Kat") totalPrice += 3;
+                if (extra === "Bis") totalPrice += 2;
+                if (extra === "Castanha") totalPrice += 2;
             });
-            description += `\n*_Extras:_*\n ${extras.join('; ')}`;
+            description += `\n*_Extras:_*\n${extras.join('; ')}`;
         }
         
         // Add observations if any
@@ -153,11 +182,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const deliveryOption = document.querySelector('input[name="entrega"]:checked').value;
         const notes = document.getElementById('customer-notes').value;
         
+        // Verifica se há combo da madrugada no carrinho
+        const hasMadrugadaCombo = cart.some(item => 
+            item.name.includes("Combo Madrugadão") || 
+            item.name.includes("Combo Casal") || 
+            item.name.includes("Combo Família")
+        );
+        
         // Calculate delivery fee based on selected option
         deliveryFee = 0;
-        if (deliveryOption === "Macau") deliveryFee = 2;
-        if (deliveryOption === "I ilha") deliveryFee = 7;
-        if (deliveryOption === "II ilha") deliveryFee = 10;
+        
+        // Só cobra taxa de entrega se NÃO for um combo da madrugada
+        if (!hasMadrugadaCombo) {
+            if (deliveryOption === "Macau") deliveryFee = 2;
+            if (deliveryOption === "I ilha") deliveryFee = 7;
+            if (deliveryOption === "II ilha") deliveryFee = 10;
+        }
         
         // Prepare WhatsApp message
         const phoneNumber = "5584996720476";
@@ -184,6 +224,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add delivery fee to message if applicable
         if (deliveryFee > 0) {
             message += `*Taxa de entrega: R$${deliveryFee.toFixed(2)}*\n`;
+        } else if (hasMadrugadaCombo) {
+            message += `*Taxa de entrega: GRÁTIS (Combo Madrugada)*\n`;
+        } else {
+            message += `*Taxa de entrega: GRÁTIS*\n`;
         }
         
         message += `*TOTAL: R$${total.toFixed(2)}*\n\n`;
@@ -291,30 +335,40 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
     
+    // Atualize a função getProductPrice para lidar com os combos
     function getProductPrice(productName, size) {
         const sizeInt = parseInt(size);
         
+        // Preços para combos
+        if(productName.includes("Combo Madrugadão")) return 19.90;
+        if(productName.includes("Combo Casal")) return 39.99;
+        if(productName.includes("Combo Família")) return 65.99;
+        if(productName.includes("Coxinha")) return 6.00;
+        if(productName.includes("Pastel de forno")) return 6.00;
+        if(productName.includes("Empada")) return 6.00;
+
+        // Preços para produtos normais
         switch(productName) {
             case 'ESPECIAL MIX':
             case 'ESPECIAL FOX':
             case 'ESPECIAL BOMBOM':
             case 'ESPECIAL TRUFADO':
-                return sizeInt === 400 ? 24.00 : 32.00;
+                return sizeInt === 400 ? 26.00 : 34.00;
             default:
-                return 25.00;
+                return 26.00;
         }
     }
     
     function getCustomBasePrice(size) {
         switch(size) {
             case '300':
-                return 10.00;
+                return 12.00;
             case '400':
-                return 14.00;
+                return 15.00;
             case '500':
                 return 17.00;
             case '700':
-                return 22.00;
+                return 24.00;
             default:
                 return 14.00;
         }
@@ -340,8 +394,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    
     
     // Add styles
     const style = document.createElement('style');
