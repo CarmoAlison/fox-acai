@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Cart functionality
     const cartIcon = document.querySelector('.cart-icon');
     const cartModal = document.querySelector('.cart-modal');
@@ -10,46 +10,55 @@ document.addEventListener('DOMContentLoaded', function() {
     const overlay = document.createElement('div');
     overlay.classList.add('overlay');
     document.body.appendChild(overlay);
-    
+
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let deliveryFee = 0;
     let orderType = 'delivery'; // Padrão: entrega
-    
+
     // Toggle cart modal
-    cartIcon.addEventListener('click', function() {
+    cartIcon.addEventListener('click', function () {
         cartModal.classList.add('active');
         overlay.classList.add('active');
         renderCartItems();
     });
-    
-    closeCart.addEventListener('click', function() {
+
+    closeCart.addEventListener('click', function () {
         cartModal.classList.remove('active');
         overlay.classList.remove('active');
     });
-    
-    overlay.addEventListener('click', function() {
+
+    overlay.addEventListener('click', function () {
         cartModal.classList.remove('active');
         overlay.classList.remove('active');
     });
-    
+
     // Add to cart for all products
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const productName = this.getAttribute('data-product');
             const productPrice = parseFloat(this.getAttribute('data-price'));
-            
+
             // Verifica se é um combo
-            if(productName.includes("Combo")) {
+            if (productName.includes("Combo")) {
                 addToCart({
                     name: productName,
                     size: "",
                     price: productPrice,
                     custom: false
                 });
-            } 
+            }
+            // Verifica se é um combo
+            if (productName.includes("Salgado")) {
+                addToCart({
+                    name: productName,
+                    size: "",
+                    price: productPrice,
+                    custom: false
+                });
+            }
             // Verifica se é um salgado
-            else if(productName === "Coxinha" || productName === "Pastel de forno" || productName === "Empada") {
+            else if (productName === "Coxinha" || productName === "Pastel de forno" || productName === "Empada") {
                 addToCart({
                     name: productName,
                     size: "Unidade",
@@ -63,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const productCard = this.closest('.product-card');
                 const productSize = productCard.querySelector('input[name*="size"]:checked').value;
                 const productPrice = getProductPrice(productName, productSize);
-                
+
                 addToCart({
                     name: productName,
                     size: productSize + 'ml',
@@ -71,45 +80,45 @@ document.addEventListener('DOMContentLoaded', function() {
                     custom: false
                 });
             }
-            
+
             updateCartCount();
             showAddedToCartMessage(productName);
         });
     });
-    
+
     // Add custom açaí to cart
     const addCustomToCartBtn = document.getElementById('add-custom-to-cart');
-    addCustomToCartBtn.addEventListener('click', function() {
+    addCustomToCartBtn.addEventListener('click', function () {
         const size = document.getElementById('size').value;
         const sizeText = document.getElementById('size').options[document.getElementById('size').selectedIndex].text;
         const basePrice = getCustomBasePrice(size);
-        
+
         // Get selected options
         const cremes = Array.from(document.querySelectorAll('input[name="Creme"]:checked')).map(el => el.value);
         const acompanhamentos = Array.from(document.querySelectorAll('input[name="AcompanhamentoGratis"]:checked')).map(el => el.value);
         const frutas = Array.from(document.querySelectorAll('input[name="fruta"]:checked')).map(el => el.value);
         const extras = Array.from(document.querySelectorAll('input[name="extra"]:checked')).map(el => el.value);
         const observations = document.getElementById('observations').value;
-        
+
         // Calculate total price
         let totalPrice = basePrice;
         let description = `*_Açaí Personalizado_* (${sizeText})\n`;
-        
+
         // Add creams
         if (cremes.length > 0) {
             description += `*_Cremes:_* \n${cremes.join('; ')}`;
         }
-        
+
         // Add free accompaniments
         if (acompanhamentos.length > 0) {
             description += `\n *_Acompanhamentos:_* \n${acompanhamentos.join('; ')}`;
         }
-        
+
         // Add fruits
         if (frutas.length > 0) {
             description += `\n*_Frutas:_* \n${frutas.join('; ')}`;
         }
-        
+
         // Add extras
         if (extras.length > 0) {
             extras.forEach(extra => {
@@ -117,15 +126,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (extra === "Oreo") totalPrice += 2;
                 if (extra === "Batom") totalPrice += 2;
                 if (extra === "Kit Kat") totalPrice += 3;
+                if (extra === "Bis") totalPrice += 2;
+                if (extra === "Castanha") totalPrice += 2;
             });
             description += `\n*_Extras:_*\n ${extras.join('; ')}`;
         }
-        
+
         // Add observations
         if (observations.trim() !== '') {
             description += `, Obs: ${observations}`;
         }
-        
+
         addToCart({
             name: "Açaí Personalizado",
             size: size + 'ml',
@@ -133,72 +144,72 @@ document.addEventListener('DOMContentLoaded', function() {
             description: description,
             custom: true
         });
-        
+
         updateCartCount();
         showAddedToCartMessage("Açaí Personalizado");
     });
-    
+
     // Clear cart
-    clearCartBtn.addEventListener('click', function() {
+    clearCartBtn.addEventListener('click', function () {
         cart = [];
         deliveryFee = 0;
         saveCart();
         renderCartItems();
         updateCartCount();
     });
-    
+
     // Checkout - Show customer info modal
-    checkoutBtn.addEventListener('click', function() {
+    checkoutBtn.addEventListener('click', function () {
         if (cart.length === 0) {
             alert('Seu carrinho está vazio!');
             return;
         }
-        
+
         // Show customer info modal
         const customerInfoModal = document.querySelector('.customer-info-modal');
         customerInfoModal.classList.add('active');
         overlay.classList.add('active');
-        
+
         // Close modal
-        document.querySelector('.close-customer-info').addEventListener('click', function() {
+        document.querySelector('.close-customer-info').addEventListener('click', function () {
             customerInfoModal.classList.remove('active');
             overlay.classList.remove('active');
         });
-        
+
         // Reset order type to delivery when modal opens
         setOrderType('delivery');
     });
-    
+
     // Order type buttons functionality
     const orderTypeButtons = document.querySelectorAll('.order-type-btn');
     orderTypeButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const type = this.getAttribute('data-type');
             setOrderType(type);
         });
     });
-    
+
     // Set order type (delivery or pickup)
     function setOrderType(type) {
         orderType = type;
-        
+
         // Remove active class from all buttons
         orderTypeButtons.forEach(btn => {
             btn.classList.remove('active');
             btn.classList.remove('delivery-active', 'pickup-active');
         });
-        
+
         // Add active class to clicked button
         const activeButton = document.querySelector(`.order-type-btn[data-type="${type}"]`);
         activeButton.classList.add('active');
-        
+
         // Add specific class based on type
         if (type === 'delivery') {
             activeButton.classList.add('delivery-active');
         } else {
             activeButton.classList.add('pickup-active');
         }
-        
+
         // Show/hide delivery fields
         const deliveryFields = document.getElementById('delivery-fields');
         if (type === 'delivery') {
@@ -212,18 +223,18 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('customer-neighborhood').required = false;
             document.querySelector('input[name="entrega"]').required = false;
         }
-        
+
         // Update title
         const title = document.querySelector('.customer-info-header h3');
-        title.textContent = type === 'delivery' 
-            ? 'INFORMAÇÕES PARA ENTREGA' 
+        title.textContent = type === 'delivery'
+            ? 'INFORMAÇÕES PARA ENTREGA'
             : 'INFORMAÇÕES PARA RETIRADA';
     }
-    
+
     // Form submission for customer info
-    document.getElementById('customer-info-form').addEventListener('submit', function(e) {
+    document.getElementById('customer-info-form').addEventListener('submit', function (e) {
         e.preventDefault();
-        
+
         // Get customer info
         const name = document.getElementById('customer-name').value;
         let address = "";
@@ -231,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let deliveryOption = "";
         const payment = document.querySelector('input[name="payment"]:checked').value;
         const notes = document.getElementById('customer-notes').value;
-        
+
         if (orderType === 'delivery') {
             address = document.getElementById('customer-address').value;
             neighborhood = document.getElementById('customer-neighborhood').value;
@@ -241,14 +252,14 @@ document.addEventListener('DOMContentLoaded', function() {
             neighborhood = "Retirada";
             deliveryOption = "Retirada";
         }
-        
+
         // Verifica se há combo da madrugada no carrinho
-        const hasMadrugadaCombo = cart.some(item => 
-            item.name.includes("Combo Madrugadão") || 
-            item.name.includes("Combo Casal") || 
+        const hasMadrugadaCombo = cart.some(item =>
+            item.name.includes("Combo Madrugadão") ||
+            item.name.includes("Combo Casal") ||
             item.name.includes("Combo Família")
         );
-        
+
         // Calculate delivery fee
         deliveryFee = 0;
         if (orderType === 'delivery' && !hasMadrugadaCombo) {
@@ -256,24 +267,24 @@ document.addEventListener('DOMContentLoaded', function() {
             if (deliveryOption === "I ilha") deliveryFee = 7;
             if (deliveryOption === "II ilha") deliveryFee = 10;
         }
-        
+
         // Prepare WhatsApp message
         const phoneNumber = "5584996720476";
         let message = `*NOVO PEDIDO - FOX AÇAÍ*\n`;
         message += `Quero meu açaí! Faço meu pedido pelo site foxacai.com.br e conto com seu atendimento especial!\n\n`;
         message += `*Cliente:* ${name}\n`;
-        
+
         if (orderType === 'delivery') {
             message += `*Endereço:* ${address}\n`;
             message += `*Bairro:* ${neighborhood}\n`;
         } else {
             message += `*Tipo de pedido:* Retirada\n`;
         }
-        
+
         message += `*Pagamento:* ${payment}\n`;
         message += `*Tipo de entrega:* ${deliveryOption}\n\n`;
         message += `*ITENS DO PEDIDO:*\n\n`;
-        
+
         cart.forEach((item, index) => {
             message += `*${index + 1}. ${item.name} ${item.size ? `(${item.size})` : ''}* - R$${item.price.toFixed(2)}\n`;
             if (item.description) {
@@ -281,10 +292,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             message += "\n";
         });
-        
+
         const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
         const total = subtotal + deliveryFee;
-        
+
         // Add delivery fee to message
         if (deliveryFee > 0) {
             message += `*Taxa de entrega: R$${deliveryFee.toFixed(2)}*\n`;
@@ -293,61 +304,61 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (orderType === 'delivery') {
             message += `*Taxa de entrega: GRÁTIS*\n`;
         }
-        
+
         message += `*TOTAL: R$${total.toFixed(2)}*\n\n`;
-        
+
         if (notes.trim() !== '') {
             message += `*Observações:* ${notes}\n\n`;
         }
-        
+
         message += `*Obrigado pelo pedido!*`;
-        
+
         // Close modals
         document.querySelector('.customer-info-modal').classList.remove('active');
         cartModal.classList.remove('active');
         overlay.classList.remove('active');
-        
+
         // Clear form
         document.getElementById('customer-info-form').reset();
-        
+
         // Reset order type to delivery
         setOrderType('delivery');
-        
+
         // Clear cart
         cart = [];
         deliveryFee = 0;
         saveCart();
         renderCartItems();
         updateCartCount();
-        
+
         // Open WhatsApp
         const encodedMessage = encodeURIComponent(message);
         window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
     });
-    
+
     // Helper functions
     function addToCart(item) {
         cart.push(item);
         saveCart();
     }
-    
+
     function saveCart() {
         localStorage.setItem('cart', JSON.stringify(cart));
     }
-    
+
     function renderCartItems() {
         cartItemsContainer.innerHTML = '';
-        
+
         if (cart.length === 0) {
             cartItemsContainer.innerHTML = '<p class="empty-cart">Seu carrinho está vazio</p>';
             cartTotal.textContent = 'R$0,00';
             return;
         }
-        
+
         cart.forEach((item, index) => {
             const cartItem = document.createElement('div');
             cartItem.classList.add('cart-item');
-            
+
             cartItem.innerHTML = `
                 <div class="item-info">
                     <h4>${item.name} ${item.size ? `(${item.size})` : ''}</h4>
@@ -358,13 +369,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     <span class="item-remove" data-index="${index}">&times;</span>
                 </div>
             `;
-            
+
             cartItemsContainer.appendChild(cartItem);
         });
-        
+
         // Add event listeners to remove buttons
         document.querySelectorAll('.item-remove').forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const index = parseInt(this.getAttribute('data-index'));
                 cart.splice(index, 1);
                 saveCart();
@@ -372,16 +383,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateCartCount();
             });
         });
-        
+
         // Update total
         const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
         cartTotal.textContent = `R$${subtotal.toFixed(2)}`;
     }
-    
+
     function updateCartCount() {
         document.querySelector('.cart-count').textContent = cart.length;
     }
-    
+
     function showAddedToCartMessage(productName) {
         const message = document.createElement('div');
         message.classList.add('cart-message');
@@ -389,11 +400,11 @@ document.addEventListener('DOMContentLoaded', function() {
             <span>${productName} foi adicionado ao carrinho!</span>
         `;
         document.body.appendChild(message);
-        
+
         setTimeout(() => {
             message.classList.add('show');
         }, 10);
-        
+
         setTimeout(() => {
             message.classList.remove('show');
             setTimeout(() => {
@@ -401,29 +412,36 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }, 3000);
     }
-    
+
     function getProductPrice(productName, size) {
         const sizeInt = parseInt(size);
-        
+
         // Preços para combos
-        if(productName.includes("Combo Madrugadão")) return 30.00;
-        if(productName.includes("Combo Casal")) return 99.00;
-        if(productName.includes("Combo Família")) return 65.00;
-        
+        if (productName.includes("Combo Madrugadão")) return 19.90;
+        if (productName.includes("Combo Casal")) return 39.99;
+        if (productName.includes("Combo Família")) return 65.99;
+        if (productName.includes("Salgado - Coxinha")) return 6.00;
+        if (productName.includes("Salgado - Empada")) return 6.00;
+        if (productName.includes("Salgado - Pastel de forno")) return 6.00;
+
         // Preços para produtos normais
-        switch(productName) {
+        switch (productName) {
+
             case 'ESPECIAL MIX':
-            case 'ESPECIAL FOX':
-            case 'ESPECIAL BOMBOM':
-            case 'ESPECIAL TRUFADO':
-                return sizeInt === 400 ? 26.00 : 34.00;
-            default:
                 return 26.00;
+            case 'ESPECIAL FOX':
+                return 34.00;
+            case 'ESPECIAL RAPOSA':
+                return 28.00;
+            case 'ESPECIAL ZERO':
+                return 20.00;
+            default:
+                return 24.00;
         }
     }
-    
+
     function getCustomBasePrice(size) {
-        switch(size) {
+        switch (size) {
             case '300':
                 return 12.00;
             case '400':
@@ -436,18 +454,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 return 14.00;
         }
     }
-    
+
     // Initialize cart count
     updateCartCount();
-    
+
     // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            
+
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 window.scrollTo({
@@ -457,7 +475,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // Add styles
     const style = document.createElement('style');
     style.textContent = `
@@ -598,15 +616,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         .order-type-btn.delivery-active {
-            background-color: #4CAF50;
+            background-color:rgb(84, 0, 105);
             color: white;
-            border-color: #4CAF50;
+            border-color: rgb(84, 0, 105);
         }
         
         .order-type-btn.pickup-active {
-            background-color: #2196F3;
+             background-color:rgb(84, 0, 105);
             color: white;
-            border-color: #2196F3;
+            border-color: rgb(84, 0, 105);
         }
         
         .order-type-btn:hover {
@@ -618,13 +636,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     `;
     document.head.appendChild(style);
-    
-   
+
+
     // Insert the order type buttons at the top of the form
     const form = document.getElementById('customer-info-form');
     const firstFormGroup = form.querySelector('.form-group');
     form.insertBefore(orderTypeOptions, firstFormGroup);
-    
+
     // Set initial state
     setOrderType('delivery');
 });
