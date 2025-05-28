@@ -472,23 +472,35 @@
     </div>
     <!-- Modal de informações do cliente -->
     <div class="customer-info-modal">
-        <div class="customer-info-content">
-            <div class="customer-info-header">
-                <h3>INFORMAÇÕES PARA ENTREGA</h3>
-                <span class="close-customer-info">&times;</span>
-            </div>
-            <form id="customer-info-form">
-                <div class="form-group">
-                    <label for="customer-name" id="labelNomeEntrega">Nome*</label>
-                    <input type="text" id="customer-name" required placeholder="Digite seu nome...">
+    <div class="customer-info-content">
+        <div class="customer-info-header">
+            <h3>INFORMAÇÕES PARA ENTREGA</h3>
+            <span class="close-customer-info">&times;</span>
+        </div>
+        <form id="customer-info-form">
+            <!-- Botão para escolher entre Entrega e Retirada -->
+            <div class="form-group">
+                <label id="labelNomeEntrega">Tipo de Pedido*</label>
+                <div class="order-type-options">
+                    <button type="button" class="order-type-btn active" data-type="delivery">Entrega</button>
+                    <button type="button" class="order-type-btn" data-type="pickup">Retirada</button>
                 </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="customer-name" id="labelNomeEntrega">Nome*</label>
+                <input type="text" id="customer-name" required placeholder="Digite seu nome...">
+            </div>
+            
+            <!-- Campos de endereço (visíveis apenas para entrega) -->
+            <div id="delivery-fields">
                 <div class="form-group">
                     <label for="customer-address" id="labelNomeEntrega">Endereço Completo*</label>
-                    <input type="text" id="customer-address" required placeholder="Digite seu endereço...">
+                    <input type="text" id="customer-address" placeholder="Digite seu endereço...">
                 </div>
                 <div class="form-group">
                     <label for="customer-neighborhood" id="labelNomeEntrega">Bairro*</label>
-                    <input type="text" id="customer-neighborhood" required placeholder="Digite seu bairro...">
+                    <input type="text" id="customer-neighborhood" placeholder="Digite seu bairro...">
                 </div>
                 <div class="form-group">
                     <label id="labelNomeEntrega">local de entrega*</label>
@@ -498,22 +510,24 @@
                         <label><input type="radio" name="entrega" value="II ilha"> ILHA 2</label>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label id="labelNomeEntrega">Forma de Pagamento*</label>
-                    <div class="payment-options">
-                        <label><input type="radio" name="payment" value="PIX" required> PIX</label>
-                        <label><input type="radio" name="payment" value="Dinheiro"> Dinheiro</label>
-                        <label><input type="radio" name="payment" value="Cartão"> Cartão</label>
-                    </div>
+            </div>
+            
+            <div class="form-group">
+                <label id="labelNomeEntrega">Forma de Pagamento*</label>
+                <div class="payment-options">
+                    <label><input type="radio" name="payment" value="PIX" required> PIX</label>
+                    <label><input type="radio" name="payment" value="Dinheiro"> Dinheiro</label>
+                    <label><input type="radio" name="payment" value="Cartão"> Cartão</label>
                 </div>
-                <div class="form-group">
-                    <label for="customer-notes">Observações</label>
-                    <textarea id="customer-notes" placeholder="Alguma informação adicional..."></textarea>
-                </div>
-                <button type="submit" class="btn">ENVIAR PEDIDO</button>
-            </form>
-        </div>
+            </div>
+            <div class="form-group">
+                <label for="customer-notes">Observações</label>
+                <textarea id="customer-notes" placeholder="Alguma informação adicional..."></textarea>
+            </div>
+            <button type="submit" class="btn">ENVIAR PEDIDO</button>
+        </form>
     </div>
+</div>
 
     <footer>
         <div class="container1">

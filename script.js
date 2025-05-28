@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.appendChild(overlay);
     
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let deliveryFee = 0; // Variável para armazenar a taxa de entrega
+    let deliveryFee = 0;
+    let orderType = 'delivery'; // Padrão: entrega
     
     // Toggle cart modal
     cartIcon.addEventListener('click', function() {
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.classList.remove('active');
     });
     
-    // Add to cart for regular products
+    // Add to cart for all products
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     addToCartButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -42,19 +43,21 @@ document.addEventListener('DOMContentLoaded', function() {
             if(productName.includes("Combo")) {
                 addToCart({
                     name: productName,
-                    size: "", // Combos não têm tamanho selecionável
+                    size: "",
                     price: productPrice,
                     custom: false
                 });
             } 
-            if(productName.includes("Salgado")) {
+            // Verifica se é um salgado
+            else if(productName === "Coxinha" || productName === "Pastel de forno" || productName === "Empada") {
                 addToCart({
                     name: productName,
-                    size: " ", // Combos não têm tamanho selecionável
+                    size: "Unidade",
                     price: productPrice,
-                    custom: false
+                    custom: false,
+                    description: this.closest('.product-card').querySelector('.product-description').textContent
                 });
-            } 
+            }
             else {
                 // Produtos normais (com tamanho)
                 const productCard = this.closest('.product-card');
@@ -85,11 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const cremes = Array.from(document.querySelectorAll('input[name="Creme"]:checked')).map(el => el.value);
         const acompanhamentos = Array.from(document.querySelectorAll('input[name="AcompanhamentoGratis"]:checked')).map(el => el.value);
         const frutas = Array.from(document.querySelectorAll('input[name="fruta"]:checked')).map(el => el.value);
-        const cobertura = Array.from(document.querySelectorAll('input[name="Cobertura"]:checked')).map(el => el.value);
         const extras = Array.from(document.querySelectorAll('input[name="extra"]:checked')).map(el => el.value);
         const observations = document.getElementById('observations').value;
         
-        // Calculate total price (sem taxa de entrega aqui)
+        // Calculate total price
         let totalPrice = basePrice;
         let description = `*_Açaí Personalizado_* (${sizeText})\n`;
         
@@ -107,10 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (frutas.length > 0) {
             description += `\n*_Frutas:_* \n${frutas.join('; ')}`;
         }
-        // Add Cobert
-        if (cobertura.length > 0) {
-            description += `\n*_Cobertura:_* \n${cobertura.join('; ')}`;
-        }
         
         // Add extras
         if (extras.length > 0) {
@@ -119,13 +117,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (extra === "Oreo") totalPrice += 2;
                 if (extra === "Batom") totalPrice += 2;
                 if (extra === "Kit Kat") totalPrice += 3;
-                if (extra === "Bis") totalPrice += 2;
-                if (extra === "Castanha") totalPrice += 2;
             });
-            description += `\n*_Extras:_*\n${extras.join('; ')}`;
+            description += `\n*_Extras:_*\n ${extras.join('; ')}`;
         }
         
-        // Add observations if any
+        // Add observations
         if (observations.trim() !== '') {
             description += `, Obs: ${observations}`;
         }
@@ -168,7 +164,61 @@ document.addEventListener('DOMContentLoaded', function() {
             customerInfoModal.classList.remove('active');
             overlay.classList.remove('active');
         });
+        
+        // Reset order type to delivery when modal opens
+        setOrderType('delivery');
     });
+    
+    // Order type buttons functionality
+    const orderTypeButtons = document.querySelectorAll('.order-type-btn');
+    orderTypeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const type = this.getAttribute('data-type');
+            setOrderType(type);
+        });
+    });
+    
+    // Set order type (delivery or pickup)
+    function setOrderType(type) {
+        orderType = type;
+        
+        // Remove active class from all buttons
+        orderTypeButtons.forEach(btn => {
+            btn.classList.remove('active');
+            btn.classList.remove('delivery-active', 'pickup-active');
+        });
+        
+        // Add active class to clicked button
+        const activeButton = document.querySelector(`.order-type-btn[data-type="${type}"]`);
+        activeButton.classList.add('active');
+        
+        // Add specific class based on type
+        if (type === 'delivery') {
+            activeButton.classList.add('delivery-active');
+        } else {
+            activeButton.classList.add('pickup-active');
+        }
+        
+        // Show/hide delivery fields
+        const deliveryFields = document.getElementById('delivery-fields');
+        if (type === 'delivery') {
+            deliveryFields.style.display = 'block';
+            document.getElementById('customer-address').required = true;
+            document.getElementById('customer-neighborhood').required = true;
+            document.querySelector('input[name="entrega"]').required = true;
+        } else {
+            deliveryFields.style.display = 'none';
+            document.getElementById('customer-address').required = false;
+            document.getElementById('customer-neighborhood').required = false;
+            document.querySelector('input[name="entrega"]').required = false;
+        }
+        
+        // Update title
+        const title = document.querySelector('.customer-info-header h3');
+        title.textContent = type === 'delivery' 
+            ? 'INFORMAÇÕES PARA ENTREGA' 
+            : 'INFORMAÇÕES PARA RETIRADA';
+    }
     
     // Form submission for customer info
     document.getElementById('customer-info-form').addEventListener('submit', function(e) {
@@ -176,11 +226,21 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Get customer info
         const name = document.getElementById('customer-name').value;
-        const address = document.getElementById('customer-address').value;
-        const neighborhood = document.getElementById('customer-neighborhood').value;
+        let address = "";
+        let neighborhood = "";
+        let deliveryOption = "";
         const payment = document.querySelector('input[name="payment"]:checked').value;
-        const deliveryOption = document.querySelector('input[name="entrega"]:checked').value;
         const notes = document.getElementById('customer-notes').value;
+        
+        if (orderType === 'delivery') {
+            address = document.getElementById('customer-address').value;
+            neighborhood = document.getElementById('customer-neighborhood').value;
+            deliveryOption = document.querySelector('input[name="entrega"]:checked').value;
+        } else {
+            address = "Retirada";
+            neighborhood = "Retirada";
+            deliveryOption = "Retirada";
+        }
         
         // Verifica se há combo da madrugada no carrinho
         const hasMadrugadaCombo = cart.some(item => 
@@ -189,11 +249,9 @@ document.addEventListener('DOMContentLoaded', function() {
             item.name.includes("Combo Família")
         );
         
-        // Calculate delivery fee based on selected option
+        // Calculate delivery fee
         deliveryFee = 0;
-        
-        // Só cobra taxa de entrega se NÃO for um combo da madrugada
-        if (!hasMadrugadaCombo) {
+        if (orderType === 'delivery' && !hasMadrugadaCombo) {
             if (deliveryOption === "Macau") deliveryFee = 2;
             if (deliveryOption === "I ilha") deliveryFee = 7;
             if (deliveryOption === "II ilha") deliveryFee = 10;
@@ -204,14 +262,20 @@ document.addEventListener('DOMContentLoaded', function() {
         let message = `*NOVO PEDIDO - FOX AÇAÍ*\n`;
         message += `Quero meu açaí! Faço meu pedido pelo site foxacai.com.br e conto com seu atendimento especial!\n\n`;
         message += `*Cliente:* ${name}\n`;
-        message += `*Endereço:* ${address}\n`;
-        message += `*Bairro:* ${neighborhood}\n`;
-        message += `*Pagamento:* ${payment}\n\n`;
-        message += `*Local da entrega:* ${deliveryOption}\n\n`;
+        
+        if (orderType === 'delivery') {
+            message += `*Endereço:* ${address}\n`;
+            message += `*Bairro:* ${neighborhood}\n`;
+        } else {
+            message += `*Tipo de pedido:* Retirada\n`;
+        }
+        
+        message += `*Pagamento:* ${payment}\n`;
+        message += `*Tipo de entrega:* ${deliveryOption}\n\n`;
         message += `*ITENS DO PEDIDO:*\n\n`;
         
         cart.forEach((item, index) => {
-            message += `*${index + 1}. ${item.name} (${item.size})* - R$${item.price.toFixed(2)}\n`;
+            message += `*${index + 1}. ${item.name} ${item.size ? `(${item.size})` : ''}* - R$${item.price.toFixed(2)}\n`;
             if (item.description) {
                 message += `${item.description}\n`;
             }
@@ -221,12 +285,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
         const total = subtotal + deliveryFee;
         
-        // Add delivery fee to message if applicable
+        // Add delivery fee to message
         if (deliveryFee > 0) {
             message += `*Taxa de entrega: R$${deliveryFee.toFixed(2)}*\n`;
-        } else if (hasMadrugadaCombo) {
+        } else if (hasMadrugadaCombo && orderType === 'delivery') {
             message += `*Taxa de entrega: GRÁTIS (Combo Madrugada)*\n`;
-        } else {
+        } else if (orderType === 'delivery') {
             message += `*Taxa de entrega: GRÁTIS*\n`;
         }
         
@@ -245,6 +309,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Clear form
         document.getElementById('customer-info-form').reset();
+        
+        // Reset order type to delivery
+        setOrderType('delivery');
         
         // Clear cart
         cart = [];
@@ -283,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             cartItem.innerHTML = `
                 <div class="item-info">
-                    <h4>${item.name} (${item.size})</h4>
+                    <h4>${item.name} ${item.size ? `(${item.size})` : ''}</h4>
                     ${item.description ? `<p>${item.description}</p>` : ''}
                 </div>
                 <div class="item-right">
@@ -306,7 +373,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Update total (sem taxa de entrega aqui - será mostrada apenas no checkout)
+        // Update total
         const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
         cartTotal.textContent = `R$${subtotal.toFixed(2)}`;
     }
@@ -335,18 +402,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
     
-    // Atualize a função getProductPrice para lidar com os combos
     function getProductPrice(productName, size) {
         const sizeInt = parseInt(size);
         
         // Preços para combos
-        if(productName.includes("Combo Madrugadão")) return 19.90;
-        if(productName.includes("Combo Casal")) return 39.99;
-        if(productName.includes("Combo Família")) return 65.99;
-        if(productName.includes("Coxinha")) return 6.00;
-        if(productName.includes("Pastel de forno")) return 6.00;
-        if(productName.includes("Empada")) return 6.00;
-
+        if(productName.includes("Combo Madrugadão")) return 30.00;
+        if(productName.includes("Combo Casal")) return 99.00;
+        if(productName.includes("Combo Família")) return 65.00;
+        
         // Preços para produtos normais
         switch(productName) {
             case 'ESPECIAL MIX':
@@ -508,6 +571,60 @@ document.addEventListener('DOMContentLoaded', function() {
         .overlay.active {
             display: block;
         }
+        
+        /* Estilos para os botões de tipo de pedido */
+        .order-type-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .order-type-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .order-type-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .order-type-btn.delivery-active {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        
+        .order-type-btn.pickup-active {
+            background-color: #2196F3;
+            color: white;
+            border-color: #2196F3;
+        }
+        
+        .order-type-btn:hover {
+            background-color: #e9e9e9;
+        }
+        
+        .order-type-btn.active:hover {
+            background-color: var(--primary-color);
+        }
     `;
     document.head.appendChild(style);
+    
+   
+    // Insert the order type buttons at the top of the form
+    const form = document.getElementById('customer-info-form');
+    const firstFormGroup = form.querySelector('.form-group');
+    form.insertBefore(orderTypeOptions, firstFormGroup);
+    
+    // Set initial state
+    setOrderType('delivery');
 });
