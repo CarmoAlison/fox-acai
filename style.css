@@ -570,6 +570,40 @@ nav ul li a:hover {
     accent-color: #5B2690;
 }
 
+.add-to {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.add-to::after {
+    content: '→';
+    position: absolute;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.add-to:hover::after {
+    right: 15px;
+    opacity: 1;
+}
+
+.add-to:hover {
+    background-color: #4a1f75;
+    padding-right: 35px;
+}
 .add-to-cart {
     width: 100%;
     padding: 12px;
@@ -661,6 +695,7 @@ nav ul li a:hover {
     font-size: 20px;
     color: #5b2690;
     font-weight: 900;
+    
 }
 
 
@@ -670,7 +705,8 @@ nav ul li a:hover {
     margin-bottom: 10px;
     font-weight: 800;
     text-align: center;
-    color: var(--dark-color);
+    color: #ffffff;
+    background-color: #FCE532;
 }
 
 .form-group select,
@@ -708,6 +744,10 @@ nav ul li a:hover {
     font-weight: 400;
     cursor: pointer;
     transition: transform 0.3s ease;
+     border: .2px solid #FCE532;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: transparent;
 }
 
 .checkbox-group label:hover {
@@ -1536,7 +1576,7 @@ footer::before {
     }
 
     .products1 .product-image {
-        max-height: AUTO   ;
+        max-height: AUTO;
         height: 100%;
     }
 
@@ -1973,4 +2013,333 @@ footer::before {
 
 .order-type-btn.active:hover {
     background-color: var(--primary-color);
+}
+
+/* estilização dos combos */
+.combos-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+    padding: 10px;
+}
+
+.combo-card {
+    background: linear-gradient(145deg, #2d1360, #4b1f8c);
+    border-radius: 20px;
+    padding: 30px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid #5b2c99;
+    position: relative;
+    overflow: hidden;
+
+}
+
+.combo-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.combo-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: rotate(30deg);
+}
+
+.combo-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #ffdf40;
+}
+
+.combo-price {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 15px 0;
+    color: #fff;
+    background: rgba(91, 38, 144, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.combo-features {
+    list-style: none;
+    text-align: left;
+    margin: 20px 0;
+    padding: 0 15px;
+}
+
+.combo-features li {
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.combo-features li i {
+    color: #ffdf40;
+    margin-right: 10px;
+}
+
+.btn-combo {
+    background: linear-gradient(to right, #ffdf40, #ffb400);
+    color: #5B2690;
+    border: none;
+    padding: 14px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    box-shadow: 0 5px 15px rgba(255, 223, 64, 0.3);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-combo:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 223, 64, 0.5);
+}
+
+.btn-combo:active {
+    transform: translateY(1px);
+}
+
+.card-modal-combos {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.card-modal-combos.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.card-container-combo {
+    max-width: 1000px;
+    width: 90%;
+    background: linear-gradient(to bottom, #1e0d3b, #2d1360);
+    border-radius: 25px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    height: 100dvh;
+    overflow-x: auto;
+    position: relative;
+    border: 2px solid #ffdf40;
+    transform: scale(0.9);
+    transition: transform 0.4s ease;
+}
+
+.card-modal-combos.active .card-container-combo {
+    transform: scale(1);
+}
+
+.card-header-combo {
+    background: linear-gradient(to right, #5B2690, #7d3cb9);
+    padding: 25px;
+    text-align: center;
+    position: relative;
+}
+
+.card-header-combo h2 {
+    font-size: 2.2rem;
+    color: #fff;
+}
+
+.card-header-combo span {
+    color: #ffdf40;
+    font-weight: 800;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.close-modal:hover {
+    transform: rotate(90deg);
+    color: #ffdf40;
+}
+
+.card-body-combo {
+    display: flex;
+    padding: 25px;
+    gap: 25px;
+}
+
+.card-left-combo,
+.card-right-combo {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-group-combo {
+    margin-bottom: 25px;
+}
+
+.form-group-combo label {
+    margin-bottom: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #ffdf40;
+
+}
+
+.titulos-catalgo-combo {
+    display: block;
+    padding: 12px 15px;
+    background: rgba(91, 38, 144, 0.7);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: #fff;
+    border-left: 4px solid #ffdf40;
+}
+
+.form-group-combo select {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border: 1px solid #5B2690;
+    outline: none;
+}
+
+.checkbox-group-combo {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.checkbox-group-combo label {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid rgba(91, 38, 144, 0.5);
+
+}
+
+.checkbox-group-combo label:hover {
+    background: rgba(91, 38, 144, 0.4);
+    border-color: #ffdf40;
+    transform: translateY(-3px);
+}
+
+.checkbox-group-combo input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    accent-color: #ffdf40;
+    cursor: pointer;
+}
+
+.card-buttons-combo {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-btn {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-cancel {
+    background: linear-gradient(to right, #f1f1f1, #e0e0e0);
+    color: #5a5a5a;
+}
+
+.btn-add {
+    background: linear-gradient(to right, #ffdf40, #ffb400);
+    color: #5B2690;
+}
+
+.modal-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-add:hover {
+    box-shadow: 0 5px 15px rgba(255, 223, 64, 0.5);
+}
+
+@media (max-width: 900px) {
+    .card-body-combo {
+        flex-direction: column;
+    }
+
+    .header h1 {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .combos-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .combo-card {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .header h1 {
+        font-size: 2.2rem;
+    }
+
+    .checkbox-group-combo {
+        grid-template-columns: 1fr;
+    }
 }

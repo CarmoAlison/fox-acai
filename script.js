@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function () {
             description += `\n*_Frutas:_* \n${frutas.join('; ')}`;
         }
         if (cobertura.length > 0) {
-            description += `\n*_Cobertura:_* \n${frutas.join('; ')}`;
+            description += `\n*_Cobertura:_* \n${cobertura.join('; ')}`;
         }
 
         // Add extras
@@ -161,6 +161,237 @@ document.addEventListener('DOMContentLoaded', function () {
         renderCartItems();
         updateCartCount();
     });
+
+// adicionar combo 1
+     const addCustomToCartBtnComboPri = document.getElementById('add-combo-to-cartPri');
+    addCustomToCartBtnComboPri.addEventListener('click', function () {
+        const size = document.getElementById('sizeCombo').value;
+        const nameCombo = document.getElementById('nomeCombo').value;
+        const sizeText = document.getElementById('sizeCombo').options[document.getElementById('sizeCombo').selectedIndex].text;
+        const basePrice = getCustomBasePrice(size);
+
+        // Get selected options
+        const cremes = Array.from(document.querySelectorAll('input[name="Creme-combo"]:checked')).map(el => el.value);
+        const acompanhamentos = Array.from(document.querySelectorAll('input[name="AcompanhamentoGratis-combo"]:checked')).map(el => el.value);
+        const frutas = Array.from(document.querySelectorAll('input[name="fruta-combo"]:checked')).map(el => el.value);
+        const extras = Array.from(document.querySelectorAll('input[name="extra-combo"]:checked')).map(el => el.value);
+        const cobertura = Array.from(document.querySelectorAll('input[name="Cobertura-combo"]:checked')).map(el => el.value);
+        const Salgado = Array.from(document.querySelectorAll('input[name="salgado-combo"]:checked')).map(el => el.value);
+        const observations = document.getElementById('observations').value;
+
+        // Calculate total price
+        let totalPrice = basePrice;
+        let description = `*_Combo Madrugadão_* (${sizeText})\n`;
+
+        // Add creams
+        if (cremes.length > 0) {
+            description += `*_Cremes:_* \n${cremes.join('; ')}`;
+        }
+
+        // Add free accompaniments
+        if (acompanhamentos.length > 0) {
+            description += `\n *_Acompanhamentos:_* \n${acompanhamentos.join('; ')}`;
+        }
+
+        // Add fruits
+        if (frutas.length > 0) {
+            description += `\n*_Frutas:_* \n${frutas.join('; ')}`;
+        }
+        if (cobertura.length > 0) {
+            description += `\n*_Cobertura:_* \n${cobertura.join('; ')}`;
+        }
+
+        // Add extras
+        if (extras.length > 0) {
+            extras.forEach(extra => {
+                if (extra === "Nutella") totalPrice += 3.5;
+                if (extra === "Oreo") totalPrice += 2;
+                if (extra === "Batom") totalPrice += 2;
+                if (extra === "Kit Kat") totalPrice += 3;
+                if (extra === "Bis") totalPrice += 2;
+                if (extra === "Castanha") totalPrice += 2;
+            });
+            description += `\n*_Extras:_*\n ${extras.join('; ')}`;
+        }
+
+        if (Salgado.length > 0) {
+            description += `\n*_Salgado:_* \n${Salgado.join('; ')}`;
+        }
+
+        // Add observations
+        if (observations.trim() !== '') {
+            description += `, Obs: ${observations}`;
+        }
+
+        addToCart({
+            name: "Combo Madrugadão",
+            size: size + 'ml',
+            price: totalPrice,
+            description: description,
+            custom: true
+        });
+
+        updateCartCount();
+        showAddedToCartMessage("Combo Madrugadão");
+    });
+
+    
+// adicionar combo 2
+     const addCustomToCartBtnComboSeg = document.getElementById('add-combo-to-cartSeg');
+    addCustomToCartBtnComboSeg.addEventListener('click', function () {
+        const size = document.getElementById('sizeCombo').value;
+        const nameCombo = document.getElementById('nomeCombo').value;
+        const sizeText = document.getElementById('sizeCombo').options[document.getElementById('sizeCombo').selectedIndex].text;
+        const basePrice = getCustomBasePrice(size);
+
+        // Get selected options
+        const cremes = Array.from(document.querySelectorAll('input[name="Creme-combo"]:checked')).map(el => el.value);
+        const acompanhamentos = Array.from(document.querySelectorAll('input[name="AcompanhamentoGratis-combo"]:checked')).map(el => el.value);
+        const frutas = Array.from(document.querySelectorAll('input[name="fruta-combo"]:checked')).map(el => el.value);
+        const extras = Array.from(document.querySelectorAll('input[name="extra-combo"]:checked')).map(el => el.value);
+        const cobertura = Array.from(document.querySelectorAll('input[name="Cobertura-combo"]:checked')).map(el => el.value);
+        const Salgado = Array.from(document.querySelectorAll('input[name="salgado-combo"]:checked')).map(el => el.value);
+        const observations = document.getElementById('observations').value;
+
+        // Calculate total price
+        let totalPrice = basePrice;
+        let description = `*_Combo Casal da Madrugada_* (${sizeText})\n`;
+
+        // Add creams
+        if (cremes.length > 0) {
+            description += `*_Cremes:_* \n${cremes.join('; ')}`;
+        }
+
+        // Add free accompaniments
+        if (acompanhamentos.length > 0) {
+            description += `\n *_Acompanhamentos:_* \n${acompanhamentos.join('; ')}`;
+        }
+
+        // Add fruits
+        if (frutas.length > 0) {
+            description += `\n*_Frutas:_* \n${frutas.join('; ')}`;
+        }
+        if (cobertura.length > 0) {
+            description += `\n*_Cobertura:_* \n${cobertura.join('; ')}`;
+        }
+
+        // Add extras
+        if (extras.length > 0) {
+            extras.forEach(extra => {
+                if (extra === "Nutella") totalPrice += 3.5;
+                if (extra === "Oreo") totalPrice += 2;
+                if (extra === "Batom") totalPrice += 2;
+                if (extra === "Kit Kat") totalPrice += 3;
+                if (extra === "Bis") totalPrice += 2;
+                if (extra === "Castanha") totalPrice += 2;
+            });
+            description += `\n*_Extras:_*\n ${extras.join('; ')}`;
+        }
+
+        if (Salgado.length > 0) {
+            description += `\n*_Salgado:_* \n${Salgado.join('; ')}`;
+        }
+
+        // Add observations
+        if (observations.trim() !== '') {
+            description += `, Obs: ${observations}`;
+        }
+
+        addToCart({
+            name: "Combo casal da madrugada",
+            size: size + 'ml',
+            price: totalPrice,
+            description: description,
+            custom: true
+        });
+
+        updateCartCount();
+        showAddedToCartMessage("Combo Casal da madrugada");
+    });
+
+    
+// adicionar combo 3
+     const addCustomToCartBtnComboTer = document.getElementById('add-combo-to-cartTer');
+    addCustomToCartBtnComboTer.addEventListener('click', function () {
+        const size = document.getElementById('sizeCombo').value;
+        const nameCombo = document.getElementById('nomeCombo').value;
+        const sizeText = document.getElementById('sizeCombo').options[document.getElementById('sizeCombo').selectedIndex].text;
+        const basePrice = getCustomBasePrice(size);
+
+        // Get selected options
+        const cremes = Array.from(document.querySelectorAll('input[name="Creme-combo"]:checked')).map(el => el.value);
+        const acompanhamentos = Array.from(document.querySelectorAll('input[name="AcompanhamentoGratis-combo"]:checked')).map(el => el.value);
+        const frutas = Array.from(document.querySelectorAll('input[name="fruta-combo"]:checked')).map(el => el.value);
+        const extras = Array.from(document.querySelectorAll('input[name="extra-combo"]:checked')).map(el => el.value);
+        const cobertura = Array.from(document.querySelectorAll('input[name="Cobertura-combo"]:checked')).map(el => el.value);
+        const Salgado = Array.from(document.querySelectorAll('input[name="salgado-combo"]:checked')).map(el => el.value);
+        const observations = document.getElementById('observations').value;
+
+        // Calculate total price
+        let totalPrice = basePrice;
+        let description = `*_Combo Família ou amigos_* (${sizeText})\n`;
+
+        // Add creams
+        if (cremes.length > 0) {
+            description += `*_Cremes:_* \n${cremes.join('; ')}`;
+        }
+
+        // Add free accompaniments
+        if (acompanhamentos.length > 0) {
+            description += `\n *_Acompanhamentos:_* \n${acompanhamentos.join('; ')}`;
+        }
+
+        // Add fruits
+        if (frutas.length > 0) {
+            description += `\n*_Frutas:_* \n${frutas.join('; ')}`;
+        }
+        if (cobertura.length > 0) {
+            description += `\n*_Cobertura:_* \n${cobertura.join('; ')}`;
+        }
+
+        // Add extras
+        if (extras.length > 0) {
+            extras.forEach(extra => {
+                if (extra === "Nutella") totalPrice += 3.5;
+                if (extra === "Oreo") totalPrice += 2;
+                if (extra === "Batom") totalPrice += 2;
+                if (extra === "Kit Kat") totalPrice += 3;
+                if (extra === "Bis") totalPrice += 2;
+                if (extra === "Castanha") totalPrice += 2;
+            });
+            description += `\n*_Extras:_*\n ${extras.join('; ')}`;
+        }
+
+        if (Salgado.length > 0) {
+            description += `\n*_Salgado:_* \n${Salgado.join('; ')}`;
+        }
+
+        // Add observations
+        if (observations.trim() !== '') {
+            description += `, Obs: ${observations}`;
+        }
+
+        addToCart({
+            name: "Combo Família ou amigos",
+            size: size + 'ml',
+            price: totalPrice,
+            description: description,
+            custom: true
+        });
+
+        updateCartCount();
+        showAddedToCartMessage("Combo Família ou amigos");
+    });
+
+    // Clear cart
+    clearCartBtn.addEventListener('click', function () {
+        cart = [];
+        deliveryFee = 0;
+        saveCart();
+        renderCartItems();
+        updateCartCount();
+    });
+
 
     // Checkout - Show customer info modal
     checkoutBtn.addEventListener('click', function () {
@@ -431,8 +662,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Preços para produtos normais
         switch (productName) {
 
-            case 'ESPECIAL MIX':
-                return 26.00;
+            case 'PROMOÇÃO DO DIA - 2x ESPECIAL MIX':
+                return 39.00;
             case 'ESPECIAL FOX':
                 return 34.00;
             case 'ESPECIAL RAPOSA':
@@ -448,10 +679,16 @@ document.addEventListener('DOMContentLoaded', function () {
         switch (size) {
             case '300':
                 return 12.00;
+            case '330':
+                return 19.90;
             case '400':
                 return 15.00;
+            case '440':
+                return 39.99;
             case '500':
                 return 17.00;
+            case '550':
+                return 65.99;
             case '700':
                 return 24.00;
             default:
@@ -650,3 +887,33 @@ document.addEventListener('DOMContentLoaded', function () {
     // Set initial state
     setOrderType('delivery');
 });
+
+// Funções para abrir e fechar modais
+function openModal(modalId) {
+    document.getElementById(modalId).classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Fechar modal ao clicar fora do conteúdo
+window.onclick = function (event) {
+    document.querySelectorAll('.card-modal-combos').forEach(modal => {
+        if (event.target === modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+}
+
+// Função para adicionar ao carrinho
+function addToCart(comboName) {
+    alert(`${comboName} adicionado ao carrinho!`);
+    closeModal('modal-combo1');
+    closeModal('modal-combo2');
+    closeModal('modal-combo3');
+}
+

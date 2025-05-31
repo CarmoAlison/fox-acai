@@ -55,7 +55,7 @@
         </section>
     </div>
 
-
+<!-- especiais -->
     <section class="products" id="products">
         <div class="container">
             <h2 class="section-title">NOSSOS <span>ESPECIAIS</span></h2>
@@ -65,9 +65,9 @@
             <div class="product-grid">
                 <!-- Produto 1 -->
                 <div class="product-card">
-                    <!-- <div class="promocaodia">
+                    <div class="promocaodia">
                         <h1>Promoção do dia!</h1>
-                    </div> -->
+                    </div>
                     <div class="product-image">
                         <img src="imagens/products/1.png" alt="Especial Nix">
                     </div>
@@ -78,11 +78,11 @@
                         <div class="product-sizes">
                             <div class="size-option">
                                 <input type="radio" id="nix-400" name="nix-size" value="400" checked>
-                                <label for="nix-400">400ml - R$26,00</label>
+                                <label for="nix-400">2 copos 400ml - R$39,00</label>
                             </div>
 
                         </div>
-                        <button class="add-to-cart" data-product="ESPECIAL MIX">ADICIONAR AO CARRINHO</button>
+                        <button class="add-to-cart" data-product="PROMOÇÃO DO DIA - 2x ESPECIAL MIX">ADICIONAR AO CARRINHO</button>
                     </div>
                 </div>
 
@@ -149,6 +149,7 @@
             </div>
         </div>
     </section>
+<!-- combos -->
     <section class="products1" id="products">
         <div class="container">
             <h2 class="section-title">COMBOS DA <span>MADRUGADA</span></h2>
@@ -168,7 +169,7 @@
                                 R$ 19,90
                             </div>
                         </div>
-                        <button class="add-to-cart" data-product="Combo Madrugadão" data-price="19.90">ADICIONAR AO
+                        <button class="add-to" data-product="Combo Madrugadão" data-price="19.90"  onclick="openModal('modal-combo1')">ADICIONAR AO
                             CARRINHO</button>
                     </div>
                 </div>
@@ -186,7 +187,7 @@
                                 R$ 39,99
                             </div>
                         </div>
-                        <button class="add-to-cart" data-product="Combo Casal da Madruga" data-price="39.99">ADICIONAR
+                        <button class="add-to" data-product="Combo Casal da Madruga" data-price="39.99" onclick="openModal('modal-combo2')">ADICIONAR
                             AO CARRINHO</button>
                     </div>
                 </div>
@@ -204,14 +205,308 @@
                                 R$ 65,99
                             </div>
                         </div>
-                        <button class="add-to-cart" data-product="Combo Família ou Amigos" data-price="65.99">ADICIONAR
+                        <button class="add-to" data-product="Combo Família ou Amigos" data-price="65.99" onclick="openModal('modal-combo3')">ADICIONAR
                             AO CARRINHO</button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+    <!-- Modal Combo 1 -->
+    <div class="card-modal-combos" id="modal-combo1">
+        <div class="card-container-combo">
+            <div class="card-header-combo">
+                <button class="close-modal" onclick="closeModal('modal-combo1')">&times;</button>
+                <h2>Personalize seu açaí do <span id="nomeCombo" value="Combo Madrugadão">Combo Madrugadão</span></h2>
+            </div>
+            <div class="card-body-combo">
+                <div class="card-left-combo">
+                    <div class="form-group-combo">
+                        <label for="sizeCombo" class="titulos-catalgo-combo">Tamanho:</label>
+                        <select id="sizeCombo">
+                            <option value="330">Copo Açai 300ml + 1 salgado - R$19,00</option>
+                        </select>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Cremes:</label>
+                        <div class="checkbox-group-combo" id="cremes-group-combo">
+                            <label><input type="checkbox" name="Creme-combo" value="Açai Tradicional" checked> Açai Tradicional</label>
+                            <label><input type="checkbox" name="Creme-combo" value="Ninho"> Ninho</label>
+                            <label><input type="checkbox" name="Creme-combo" value="Ninho Trunfado"> Ninho Trunfado</label>
+                            <label><input type="checkbox" name="Creme-combo" value="Chocomalte"> Chocomalte</label>
+                            <label><input type="checkbox" name="Creme-combo" value="Cupuaçu"> Cupuaçu</label>
+                        </div>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Acompanhamento Grátis: (Escolha até 3)</label>
+                        <div class="checkbox-group-combo" id="acompanhamentos-group-combo">
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Leite em pó"> Leite em pó</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Farinha Láctea"> Farinha Láctea</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Flocos de Arroz"> Flocos de Arroz</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="M&M"> M&M</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Chocopower"> ChocoPower</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Granola"> Granola</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Paçoca"> Paçoca</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Granulado"> Granulado</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Coco"> Coco</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Amendoim"> Amendoim</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Gota de Chocolate"> Gota de Chocolate</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Canudinho"> Canudinho</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Chocoball"> Chocoball</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Creme de avelã"> Creme de avelã</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Ovomaltine"> Ovomaltine</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-right-combo">
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Frutas: (Escolha até 1)</label>
+                        <div class="checkbox-group-combo" id="frutas-group-combo">
+                            <label><input type="checkbox" name="fruta-combo" value="Morango"> Morango</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Banana"> Banana</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Uva"> Uva</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Coco"> Coco</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Cereja"> Cereja</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Kiwi"> Kiwi</label>
+                        </div>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Cobertura: (Escolha até 1)</label>
+                        <div class="checkbox-group-combo" id="cobertura-group-combo">
+                            <label><input type="checkbox" name="Cobertura-combo" value="leite condensado"> Leite Condensado</label>
+                            <label><input type="checkbox" name="Cobertura-combo" value="Morango"> Morango</label>
+                            <label><input type="checkbox" name="Cobertura-combo" value="Uva"> Uva</label>
+                            <label><input type="checkbox" name="Cobertura-combo" value="Chocolate"> Chocolate</label>
+                        </div>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Adicionais:</label>
+                        <div class="checkbox-group-combo">
+                            <label><input type="checkbox" name="extra-combo" value="Nutella"> Nutella (+R$3,50)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Oreo"> Oreo (+R$2,00)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Batom"> Batom (+R$2,00)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Kit Kat"> Kit Kat (+R$3,00)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Bis"> Bis (+R$2,00)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Castanha"> Castanha (+R$2,00)</label>
+                        </div>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Adicionais:</label>
+                        <div class="checkbox-group-combo">
+                            <label><input type="checkbox" name="salgado-combo" value="Coxinha"> Coxinha</label>
+                            <label><input type="checkbox" name="salgado-combo" value="Pastel de forno"> Pastel de forno</label>
+                            <label><input type="checkbox" name="salgado-combo" value="Empada"> Empada</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-buttons-combo">
+                <button class="modal-btn btn-cancel" onclick="closeModal('modal-combo1')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="modal-btn btn-add" onclick="addToCart('Combo Madrugadão')" id="add-combo-to-cartPri">
+                    <i class="fas fa-shopping-cart"></i> Enviar combo pro carrinho
+                </button>
+            </div>
+        </div>
+    </div>
+<!-- Modal Combo 2 -->
+    <div class="card-modal-combos" id="modal-combo2">
+        <div class="card-container-combo">
+            <div class="card-header-combo">
+                <button class="close-modal" onclick="closeModal('modal-combo1')">&times;</button>
+                <h2>Personalize seu açaí do <span>Combo Casal da Madrugada</span></h2>
+            </div>
+            <div class="card-body-combo">
+                <div class="card-left-combo">
+                    <div class="form-group-combo">
+                        <label for="sizeCombo" class="titulos-catalgo-combo">Tamanho:</label>
+                        <select id="sizeCombo">
+                            <option value="440">Copos de 400ml + 2 salgados - R$39,99</option>
+                        </select>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Cremes:</label>
+                        <div class="checkbox-group-combo" id="cremes-group-combo">
+                            <label><input type="checkbox" name="Creme-combo" value="Açai Tradicional" checked> Açai Tradicional</label>
+                            <label><input type="checkbox" name="Creme-combo" value="Ninho"> Ninho</label>
+                            <label><input type="checkbox" name="Creme-combo" value="Ninho Trunfado"> Ninho Trunfado</label>
+                            <label><input type="checkbox" name="Creme-combo" value="Chocomalte"> Chocomalte</label>
+                            <label><input type="checkbox" name="Creme-combo" value="Cupuaçu"> Cupuaçu</label>
+                        </div>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Acompanhamento Grátis: (Escolha até 3)</label>
+                        <div class="checkbox-group-combo" id="acompanhamentos-group-combo">
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Leite em pó"> Leite em pó</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Farinha Láctea"> Farinha Láctea</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Flocos de Arroz"> Flocos de Arroz</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="M&M"> M&M</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Chocopower"> ChocoPower</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Granola"> Granola</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Paçoca"> Paçoca</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Granulado"> Granulado</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Coco"> Coco</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Amendoim"> Amendoim</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Gota de Chocolate"> Gota de Chocolate</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Canudinho"> Canudinho</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Chocoball"> Chocoball</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Creme de avelã"> Creme de avelã</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Ovomaltine"> Ovomaltine</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-right-combo">
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Frutas: (Escolha até 1)</label>
+                        <div class="checkbox-group-combo" id="frutas-group-combo">
+                            <label><input type="checkbox" name="fruta-combo" value="Morango"> Morango</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Banana"> Banana</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Uva"> Uva</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Coco"> Coco</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Cereja"> Cereja</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Kiwi"> Kiwi</label>
+                        </div>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Cobertura: (Escolha até 1)</label>
+                        <div class="checkbox-group-combo" id="cobertura-group-combo">
+                            <label><input type="checkbox" name="Cobertura-combo" value="leite condensado"> Leite Condensado</label>
+                            <label><input type="checkbox" name="Cobertura-combo" value="Morango"> Morango</label>
+                            <label><input type="checkbox" name="Cobertura-combo" value="Uva"> Uva</label>
+                            <label><input type="checkbox" name="Cobertura-combo" value="Chocolate"> Chocolate</label>
+                        </div>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Adicionais:</label>
+                        <div class="checkbox-group-combo">
+                            <label><input type="checkbox" name="extra-combo" value="Nutella"> Nutella (+R$3,50)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Oreo"> Oreo (+R$2,00)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Batom"> Batom (+R$2,00)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Kit Kat"> Kit Kat (+R$3,00)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Bis"> Bis (+R$2,00)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Castanha"> Castanha (+R$2,00)</label>
+                        </div>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Adicionais:</label>
+                        <div class="checkbox-group-combo">
+                            <label><input type="checkbox" name="salgado-combo" value="Coxinha"> Coxinha</label>
+                            <label><input type="checkbox" name="salgado-combo" value="Pastel de forno"> Pastel de forno</label>
+                            <label><input type="checkbox" name="salgado-combo" value="Empada"> Empada</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-buttons-combo">
+                <button class="modal-btn btn-cancel" onclick="closeModal('modal-combo2')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="modal-btn btn-add" onclick="addToCart('Combo Casal da madrugada')" id="add-combo-to-cartSeg">
+                    <i class="fas fa-shopping-cart"></i> Enviar combo pro carrinho
+                </button>
+            </div>
+        </div>
+    </div>
+<!-- Modal combo 3 -->
+    <div class="card-modal-combos" id="modal-combo3">
+        <div class="card-container-combo">
+            <div class="card-header-combo">
+                <button class="close-modal" onclick="closeModal('modal-combo1')">&times;</button>
+                <h2>Personalize seu açaí do <span>Combo Família ou amigos</span></h2>
+            </div>
+            <div class="card-body-combo">
+                <div class="card-left-combo">
+                    <div class="form-group-combo">
+                        <label for="sizeCombo" class="titulos-catalgo-combo">Tamanho:</label>
+                        <select id="sizeCombo">
+                            <option value="550">3 Copos de 500ml + 3 salgados - R$65,99</option>
+                        </select>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Cremes:</label>
+                        <div class="checkbox-group-combo" id="cremes-group-combo">
+                            <label><input type="checkbox" name="Creme-combo" value="Açai Tradicional" checked> Açai Tradicional</label>
+                            <label><input type="checkbox" name="Creme-combo" value="Ninho"> Ninho</label>
+                            <label><input type="checkbox" name="Creme-combo" value="Ninho Trunfado"> Ninho Trunfado</label>
+                            <label><input type="checkbox" name="Creme-combo" value="Chocomalte"> Chocomalte</label>
+                            <label><input type="checkbox" name="Creme-combo" value="Cupuaçu"> Cupuaçu</label>
+                        </div>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Acompanhamento Grátis: (Escolha até 3)</label>
+                        <div class="checkbox-group-combo" id="acompanhamentos-group-combo">
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Leite em pó"> Leite em pó</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Farinha Láctea"> Farinha Láctea</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Flocos de Arroz"> Flocos de Arroz</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="M&M"> M&M</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Chocopower"> ChocoPower</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Granola"> Granola</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Paçoca"> Paçoca</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Granulado"> Granulado</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Coco"> Coco</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Amendoim"> Amendoim</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Gota de Chocolate"> Gota de Chocolate</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Canudinho"> Canudinho</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Chocoball"> Chocoball</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Creme de avelã"> Creme de avelã</label>
+                            <label><input type="checkbox" name="AcompanhamentoGratis-combo" value="Ovomaltine"> Ovomaltine</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-right-combo">
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Frutas: (Escolha até 1)</label>
+                        <div class="checkbox-group-combo" id="frutas-group-combo">
+                            <label><input type="checkbox" name="fruta-combo" value="Morango"> Morango</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Banana"> Banana</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Uva"> Uva</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Coco"> Coco</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Cereja"> Cereja</label>
+                            <label><input type="checkbox" name="fruta-combo" value="Kiwi"> Kiwi</label>
+                        </div>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Cobertura: (Escolha até 1)</label>
+                        <div class="checkbox-group-combo" id="cobertura-group-combo">
+                            <label><input type="checkbox" name="Cobertura-combo" value="leite condensado"> Leite Condensado</label>
+                            <label><input type="checkbox" name="Cobertura-combo" value="Morango"> Morango</label>
+                            <label><input type="checkbox" name="Cobertura-combo" value="Uva"> Uva</label>
+                            <label><input type="checkbox" name="Cobertura-combo" value="Chocolate"> Chocolate</label>
+                        </div>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Adicionais:</label>
+                        <div class="checkbox-group-combo">
+                            <label><input type="checkbox" name="extra-combo" value="Nutella"> Nutella (+R$3,50)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Oreo"> Oreo (+R$2,00)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Batom"> Batom (+R$2,00)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Kit Kat"> Kit Kat (+R$3,00)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Bis"> Bis (+R$2,00)</label>
+                            <label><input type="checkbox" name="extra-combo" value="Castanha"> Castanha (+R$2,00)</label>
+                        </div>
+                    </div>
+                    <div class="form-group-combo">
+                        <label class="titulos-catalgo-combo">Adicionais:</label>
+                        <div class="checkbox-group-combo">
+                            <label><input type="checkbox" name="salgado-combo" value="Coxinha"> Coxinha</label>
+                            <label><input type="checkbox" name="salgado-combo" value="Pastel de forno"> Pastel de forno</label>
+                            <label><input type="checkbox" name="salgado-combo" value="Empada"> Empada</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-buttons-combo">
+                <button class="modal-btn btn-cancel" onclick="closeModal('modal-combo3')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button class="modal-btn btn-add" onclick="addToCart('Combo Família ou amigos')" id="add-combo-to-cartTer">
+                    <i class="fas fa-shopping-cart"></i> Enviar combo pro carrinho
+                </button>
+            </div>
+        </div>
+    </div>
+<!-- Salgados  -->
     <section class="products1" id="products">
         <div class="container">
             <h2 class="section-title">SALGADOS DO <span>FOX</span></h2>
@@ -274,7 +569,7 @@
             </div>
         </div>
     </section>
-
+<!-- Costumizar o açaí  -->
     <section class="custom-acai" id="custom">
         <div class="container">
             <h2 class="section-title">PERSONALIZE <span>SEU AÇAÍ</span></h2>
@@ -309,9 +604,12 @@
                     <label id="acompanhamentos-label" class="titulos-catalgo">Acompanhamento Grátis: (Escolha até
                         3)</label>
                     <div class="checkbox-group" id="acompanhamentos-group">
-                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Leite em pó">Leite em pó</label>
-                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Farinha Láctea">Farinha Láctea</label>
-                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Flocos de Arroz">Flocos de Arroz</label>
+                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Leite em pó">Leite em
+                            pó</label>
+                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Farinha Láctea">Farinha
+                            Láctea</label>
+                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Flocos de Arroz">Flocos de
+                            Arroz</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="M&M">M&M</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Chocopower">ChocoPower</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Granola">Granola</label>
@@ -319,10 +617,12 @@
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Granulado">Granulado</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Coco">Coco</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Amendoim">Amendoim</label>
-                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Gota de Chocolate">Gota de Chocolate</label>
+                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Gota de Chocolate">Gota de
+                            Chocolate</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Canudinho">Canudinho</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Chocoball">Chocoball</label>
-                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Creme de avelã">Creme de avelã</label>
+                        <label><input type="checkbox" name="AcompanhamentoGratis" value="Creme de avelã">Creme de
+                            avelã</label>
                         <label><input type="checkbox" name="AcompanhamentoGratis" value="Ovomaltine">Ovomaltine</label>
                     </div>
                 </div>
@@ -369,9 +669,8 @@
             </div>
         </div>
     </section>
-
     <hr>
-
+<!-- Sobre nós  -->
     <section class="about" id="about">
         <div class="container">
             <div class="about-content">
@@ -402,6 +701,7 @@
         </div>
     </section>
     <hr>
+<!-- Contato  -->
     <section class="contact" id="contact">
         <div class="container">
             <h2 class="section-title">ENTRE EM <span>CONTATO</span></h2>
@@ -450,7 +750,7 @@
             </div>
         </div>
     </section>
-
+<!-- Carrinho  -->
     <div class="cart-modal">
         <div class="cart-content">
             <div class="cart-header">
@@ -472,63 +772,63 @@
     </div>
     <!-- Modal de informações do cliente -->
     <div class="customer-info-modal">
-    <div class="customer-info-content">
-        <div class="customer-info-header">
-            <h3>INFORMAÇÕES PARA ENTREGA</h3>
-            <span class="close-customer-info">&times;</span>
-        </div>
-        <form id="customer-info-form">
-            <!-- Botão para escolher entre Entrega e Retirada -->
-            <div class="form-group">
-                <label id="labelNomeEntrega">Tipo de Pedido*</label>
-                <div class="order-type-options">
-                    <button type="button" class="order-type-btn active" data-type="delivery">Entrega</button>
-                    <button type="button" class="order-type-btn" data-type="pickup">Retirada</button>
-                </div>
+        <div class="customer-info-content">
+            <div class="customer-info-header">
+                <h3>INFORMAÇÕES PARA ENTREGA</h3>
+                <span class="close-customer-info">&times;</span>
             </div>
-            
-            <div class="form-group">
-                <label for="customer-name" id="labelNomeEntrega">Nome*</label>
-                <input type="text" id="customer-name" required placeholder="Digite seu nome...">
-            </div>
-            
-            <!-- Campos de endereço (visíveis apenas para entrega) -->
-            <div id="delivery-fields">
+            <form id="customer-info-form">
+                <!-- Botão para escolher entre Entrega e Retirada -->
                 <div class="form-group">
-                    <label for="customer-address" id="labelNomeEntrega">Endereço Completo*</label>
-                    <input type="text" id="customer-address" placeholder="Digite seu endereço...">
-                </div>
-                <div class="form-group">
-                    <label for="customer-neighborhood" id="labelNomeEntrega">Bairro*</label>
-                    <input type="text" id="customer-neighborhood" placeholder="Digite seu bairro...">
-                </div>
-                <div class="form-group">
-                    <label id="labelNomeEntrega">local de entrega*</label>
-                    <div class="payment-entrega">
-                        <label><input type="radio" name="entrega" value="Macau" required> MACAU</label>
-                        <label><input type="radio" name="entrega" value="I ilha"> ILHA 1</label>
-                        <label><input type="radio" name="entrega" value="II ilha"> ILHA 2</label>
+                    <label id="labelNomeEntrega">Tipo de Pedido*</label>
+                    <div class="order-type-options">
+                        <button type="button" class="order-type-btn active" data-type="delivery">Entrega</button>
+                        <button type="button" class="order-type-btn" data-type="pickup">Retirada</button>
                     </div>
                 </div>
-            </div>
-            
-            <div class="form-group">
-                <label id="labelNomeEntrega">Forma de Pagamento*</label>
-                <div class="payment-options">
-                    <label><input type="radio" name="payment" value="PIX" required> PIX</label>
-                    <label><input type="radio" name="payment" value="Dinheiro"> Dinheiro</label>
-                    <label><input type="radio" name="payment" value="Cartão"> Cartão</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="customer-notes">Observações</label>
-                <textarea id="customer-notes" placeholder="Alguma informação adicional..."></textarea>
-            </div>
-            <button type="submit" class="btn">ENVIAR PEDIDO</button>
-        </form>
-    </div>
-</div>
 
+                <div class="form-group">
+                    <label for="customer-name" id="labelNomeEntrega">Nome*</label>
+                    <input type="text" id="customer-name" required placeholder="Digite seu nome...">
+                </div>
+
+                <!-- Campos de endereço (visíveis apenas para entrega) -->
+                <div id="delivery-fields">
+                    <div class="form-group">
+                        <label for="customer-address" id="labelNomeEntrega">Endereço Completo*</label>
+                        <input type="text" id="customer-address" placeholder="Digite seu endereço...">
+                    </div>
+                    <div class="form-group">
+                        <label for="customer-neighborhood" id="labelNomeEntrega">Bairro*</label>
+                        <input type="text" id="customer-neighborhood" placeholder="Digite seu bairro...">
+                    </div>
+                    <div class="form-group">
+                        <label id="labelNomeEntrega">local de entrega*</label>
+                        <div class="payment-entrega">
+                            <label><input type="radio" name="entrega" value="Macau" required> MACAU</label>
+                            <label><input type="radio" name="entrega" value="I ilha"> ILHA 1</label>
+                            <label><input type="radio" name="entrega" value="II ilha"> ILHA 2</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label id="labelNomeEntrega">Forma de Pagamento*</label>
+                    <div class="payment-options">
+                        <label><input type="radio" name="payment" value="PIX" required> PIX</label>
+                        <label><input type="radio" name="payment" value="Dinheiro"> Dinheiro</label>
+                        <label><input type="radio" name="payment" value="Cartão"> Cartão</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="customer-notes">Observações</label>
+                    <textarea id="customer-notes" placeholder="Alguma informação adicional..."></textarea>
+                </div>
+                <button type="submit" class="btn">ENVIAR PEDIDO</button>
+            </form>
+        </div>
+    </div>
+<!-- Footer  -->
     <footer>
         <div class="container1">
             <div class="container">
