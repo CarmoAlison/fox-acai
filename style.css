@@ -705,8 +705,7 @@ nav ul li a:hover {
     margin-bottom: 10px;
     font-weight: 800;
     text-align: center;
-    color: #ffffff;
-    background-color: #FCE532;
+
 }
 
 .form-group select,
@@ -769,10 +768,11 @@ nav ul li a:hover {
 .titulos-catalgo {
     font-size: 20px;
     border: .2px solid #5b2690;
-    color: #5b2690;
+    color: #ffffff;
     border-radius: 10px;
     transition: all 0.3s ease;
     padding: 10px;
+    background-color: #FCE532;
 }
 
 .checkbox-group input[type="checkbox"],
