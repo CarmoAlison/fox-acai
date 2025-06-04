@@ -498,8 +498,8 @@ document.addEventListener('DOMContentLoaded', function () {
         // Calculate delivery fee
         deliveryFee = 0;
         if (orderType === 'delivery' && !hasMadrugadaCombo) {
-            if (deliveryOption === "Macau") deliveryFee = 2;
-            if (deliveryOption === "I ilha") deliveryFee = 7;
+            if (deliveryOption === "Macau") deliveryFee = 0;
+            if (deliveryOption === "I ilha") deliveryFee = 0;
             if (deliveryOption === "II ilha") deliveryFee = 10;
         }
 
