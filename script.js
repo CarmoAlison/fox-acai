@@ -153,22 +153,13 @@ document.addEventListener('DOMContentLoaded', function () {
         showAddedToCartMessage("Açaí Personalizado");
     });
 
-    // Clear cart
-    clearCartBtn.addEventListener('click', function () {
-        cart = [];
-        deliveryFee = 0;
-        saveCart();
-        renderCartItems();
-        updateCartCount();
-    });
-
-// adicionar combo 1
-     const addCustomToCartBtnComboPri = document.getElementById('add-combo-to-cartPri');
+    // Add combo 1 to cart
+    const addCustomToCartBtnComboPri = document.getElementById('add-combo-to-cartPri');
     addCustomToCartBtnComboPri.addEventListener('click', function () {
         const size = document.getElementById('sizeCombo').value;
-        const nameCombo = document.getElementById('nomeCombo').value;
+        const nameCombo = "Combo Madrugadão";
         const sizeText = document.getElementById('sizeCombo').options[document.getElementById('sizeCombo').selectedIndex].text;
-        const basePrice = getCustomBasePrice(size);
+        const basePrice = parseFloat(document.querySelector(`.add-to[data-product="${nameCombo}"]`).getAttribute('data-price'));
 
         // Get selected options
         const cremes = Array.from(document.querySelectorAll('input[name="Creme-combo"]:checked')).map(el => el.value);
@@ -181,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Calculate total price
         let totalPrice = basePrice;
-        let description = `*_Combo Madrugadão_* (${sizeText})\n`;
+        let description = `*_${nameCombo}_* (${sizeText})\n`;
 
         // Add creams
         if (cremes.length > 0) {
@@ -224,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         addToCart({
-            name: "Combo Madrugadão",
+            name: nameCombo,
             size: size + 'ml',
             price: totalPrice,
             description: description,
@@ -232,17 +223,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         updateCartCount();
-        showAddedToCartMessage("Combo Madrugadão");
+        showAddedToCartMessage(nameCombo);
+        closeModal('modal-combo1');
     });
 
-    
-// adicionar combo 2
-     const addCustomToCartBtnComboSeg = document.getElementById('add-combo-to-cartSeg');
+    // Add combo 2 to cart
+    const addCustomToCartBtnComboSeg = document.getElementById('add-combo-to-cartSeg');
     addCustomToCartBtnComboSeg.addEventListener('click', function () {
         const size = document.getElementById('sizeCombo').value;
-        const nameCombo = document.getElementById('nomeCombo').value;
+        const nameCombo = "Combo Casal da Madruga";
         const sizeText = document.getElementById('sizeCombo').options[document.getElementById('sizeCombo').selectedIndex].text;
-        const basePrice = getCustomBasePrice(size);
+        const basePrice = parseFloat(document.querySelector(`.add-to[data-product="${nameCombo}"]`).getAttribute('data-price'));
 
         // Get selected options
         const cremes = Array.from(document.querySelectorAll('input[name="Creme-combo"]:checked')).map(el => el.value);
@@ -255,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Calculate total price
         let totalPrice = basePrice;
-        let description = `*_Combo Casal da Madrugada_* (${sizeText})\n`;
+        let description = `*_${nameCombo}_* (${sizeText})\n`;
 
         // Add creams
         if (cremes.length > 0) {
@@ -298,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         addToCart({
-            name: "Combo casal da madrugada",
+            name: nameCombo,
             size: size + 'ml',
             price: totalPrice,
             description: description,
@@ -306,17 +297,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         updateCartCount();
-        showAddedToCartMessage("Combo Casal da madrugada");
+        showAddedToCartMessage(nameCombo);
+        closeModal('modal-combo2');
     });
 
-    
-// adicionar combo 3
-     const addCustomToCartBtnComboTer = document.getElementById('add-combo-to-cartTer');
+    // Add combo 3 to cart
+    const addCustomToCartBtnComboTer = document.getElementById('add-combo-to-cartTer');
     addCustomToCartBtnComboTer.addEventListener('click', function () {
         const size = document.getElementById('sizeCombo').value;
-        const nameCombo = document.getElementById('nomeCombo').value;
+        const nameCombo = "Combo Família ou Amigos";
         const sizeText = document.getElementById('sizeCombo').options[document.getElementById('sizeCombo').selectedIndex].text;
-        const basePrice = getCustomBasePrice(size);
+        const basePrice = parseFloat(document.querySelector(`.add-to[data-product="${nameCombo}"]`).getAttribute('data-price'));
 
         // Get selected options
         const cremes = Array.from(document.querySelectorAll('input[name="Creme-combo"]:checked')).map(el => el.value);
@@ -329,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Calculate total price
         let totalPrice = basePrice;
-        let description = `*_Combo Família ou amigos_* (${sizeText})\n`;
+        let description = `*_${nameCombo}_* (${sizeText})\n`;
 
         // Add creams
         if (cremes.length > 0) {
@@ -372,7 +363,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         addToCart({
-            name: "Combo Família ou amigos",
+            name: nameCombo,
             size: size + 'ml',
             price: totalPrice,
             description: description,
@@ -380,7 +371,8 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         updateCartCount();
-        showAddedToCartMessage("Combo Família ou amigos");
+        showAddedToCartMessage(nameCombo);
+        closeModal('modal-combo3');
     });
 
     // Clear cart
@@ -391,7 +383,6 @@ document.addEventListener('DOMContentLoaded', function () {
         renderCartItems();
         updateCartCount();
     });
-
 
     // Checkout - Show customer info modal
     checkoutBtn.addEventListener('click', function () {
@@ -661,7 +652,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Preços para produtos normais
         switch (productName) {
-
             case 'PROMOÇÃO DO DIA - 2X ESPECIAL MIX':
                 return 39.00;
             case 'ESPECIAL FOX':
@@ -680,15 +670,15 @@ document.addEventListener('DOMContentLoaded', function () {
             case '300':
                 return 12.00;
             case '330':
-                return 19.90;
+                return 19.90;  // Combo Madrugadão
             case '400':
                 return 15.00;
             case '440':
-                return 39.99;
+                return 39.99;  // Combo Casal
             case '500':
                 return 17.00;
             case '550':
-                return 65.99;
+                return 65.99;  // Combo Família
             case '700':
                 return 24.00;
             default:
@@ -878,7 +868,6 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
     document.head.appendChild(style);
 
-
     // Insert the order type buttons at the top of the form
     const form = document.getElementById('customer-info-form');
     const firstFormGroup = form.querySelector('.form-group');
@@ -908,13 +897,3 @@ window.onclick = function (event) {
         }
     });
 }
-
-// Função para adicionar ao carrinho
-function addToCart(comboName) {
-    alert(`${comboName} adicionado ao carrinho!`);
-    closeModal('modal-combo1');
-    closeModal('modal-combo2');
-    closeModal('modal-combo3');
-}
-
-
