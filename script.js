@@ -652,8 +652,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Preços para produtos normais
         switch (productName) {
-            case 'PROMOÇÃO DO DIA - 2X ESPECIAL MIX':
-                return 39.00;
+            case 'ESPECIAL MIX':
+                return 26.00;
             case 'ESPECIAL FOX':
                 return 34.00;
             case 'ESPECIAL RAPOSA':
