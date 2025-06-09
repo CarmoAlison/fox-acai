@@ -2152,6 +2152,11 @@ footer::before {
     transition: transform 0.4s ease;
 }
 
+.card-container-combo h1{
+    color: #FCE532;
+    padding: 10px;
+}
+
 .card-modal-combos.active .card-container-combo {
     transform: scale(1);
 }
@@ -2414,4 +2419,29 @@ footer::before {
         color: #ffffff;
         background-color: transparent; 
     }
+}
+/* #personalizarComboA,
+#personalizarComboB,
+#personalizarComboC {
+    display: none;
+} */
+.personalizaracais{
+    display: flex;
+    justify-content:center ;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+}
+.personalizaracais button{
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    font-size: 20px;
+    background: linear-gradient(120deg, #5B2690,#e6d12e);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.personalizaracais h2{
+    color: #ffffff;
 }

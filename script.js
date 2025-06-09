@@ -48,6 +48,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     custom: false
                 });
             }
+            if (productName.includes("ComboA")) {
+                addToCartA({
+                    name: productName,
+                    size: "",
+                    custom: false
+                });
+            }
             // Verifica se é um combo
             if (productName.includes("Salgado")) {
                 addToCart({
@@ -301,6 +308,79 @@ document.addEventListener('DOMContentLoaded', function () {
         closeModal('modal-combo2');
     });
 
+    const addCustomToCartBtnComboSegA = document.getElementById('add-combo-to-cartSeg');
+    addCustomToCartBtnComboSegA.addEventListener('click', function () {
+        const size = document.getElementById('sizeCombo').value;
+        const nameCombo = "Combo Casal da Madruga";
+        const sizeText = document.getElementById('sizeCombo').options[document.getElementById('sizeCombo').selectedIndex].text;
+        const basePrice = parseFloat(document.querySelector(`.add-to[data-product="${nameCombo}"]`).getAttribute('data-price'));
+
+        // Get selected options
+        const cremes = Array.from(document.querySelectorAll('input[name="Creme-comboA"]:checked')).map(el => el.value);
+        const acompanhamentos = Array.from(document.querySelectorAll('input[name="AcompanhamentoGratis-comboA"]:checked')).map(el => el.value);
+        const frutas = Array.from(document.querySelectorAll('input[name="fruta-comboA"]:checked')).map(el => el.value);
+        const extras = Array.from(document.querySelectorAll('input[name="extra-comboA"]:checked')).map(el => el.value);
+        const cobertura = Array.from(document.querySelectorAll('input[name="Cobertura-comboA"]:checked')).map(el => el.value);
+        const Salgado = Array.from(document.querySelectorAll('input[name="salgado-comboA"]:checked')).map(el => el.value);
+        const observations = document.getElementById('observations').value;
+
+        // Calculate total price
+        let totalPrice = 0;
+        let description = `*_${nameCombo}_* (${sizeText})\n`;
+
+        // Add creams
+        if (cremes.length > 0) {
+            description += `*_Cremes:_* \n${cremes.join('; ')}`;
+        }
+
+        // Add free accompaniments
+        if (acompanhamentos.length > 0) {
+            description += `\n *_Acompanhamentos:_* \n${acompanhamentos.join('; ')}`;
+        }
+
+        // Add fruits
+        if (frutas.length > 0) {
+            description += `\n*_Frutas:_* \n${frutas.join('; ')}`;
+        }
+        if (cobertura.length > 0) {
+            description += `\n*_Cobertura:_* \n${cobertura.join('; ')}`;
+        }
+
+        // Add extras
+        if (extras.length > 0) {
+            extras.forEach(extra => {
+                if (extra === "Nutella") totalPrice += 3.5;
+                if (extra === "Oreo") totalPrice += 2;
+                if (extra === "Batom") totalPrice += 2;
+                if (extra === "Kit Kat") totalPrice += 3;
+                if (extra === "Bis") totalPrice += 2;
+                if (extra === "Castanha") totalPrice += 2;
+            });
+            description += `\n*_Extras:_*\n ${extras.join('; ')}`;
+        }
+
+        if (Salgado.length > 0) {
+            description += `\n*_Salgado:_* \n${Salgado.join('; ')}`;
+        }
+
+        // Add observations
+        if (observations.trim() !== '') {
+            description += `, Obs: ${observations}`;
+        }
+
+        addToCart({
+            name: "Segundo copo - Combo Casal Madrugada",
+            size: size + 'ml',
+            price: totalPrice,
+            description: description,
+            custom: true
+        });
+
+        updateCartCount();
+        showAddedToCartMessage(nameCombo);
+        closeModal('modal-combo2');
+    });
+
     // Add combo 3 to cart
     const addCustomToCartBtnComboTer = document.getElementById('add-combo-to-cartTer');
     addCustomToCartBtnComboTer.addEventListener('click', function () {
@@ -364,6 +444,150 @@ document.addEventListener('DOMContentLoaded', function () {
 
         addToCart({
             name: nameCombo,
+            size: size + 'ml',
+            price: totalPrice,
+            description: description,
+            custom: true
+        });
+
+        updateCartCount();
+        showAddedToCartMessage(nameCombo);
+        closeModal('modal-combo3');
+    });
+    const addCustomToCartBtnComboTerB = document.getElementById('add-combo-to-cartTer');
+    addCustomToCartBtnComboTerB.addEventListener('click', function () {
+        const size = document.getElementById('sizeCombo').value;
+        const nameCombo = "Combo Família ou Amigos";
+        const sizeText = document.getElementById('sizeCombo').options[document.getElementById('sizeCombo').selectedIndex].text;
+        const basePrice = parseFloat(document.querySelector(`.add-to[data-product="${nameCombo}"]`).getAttribute('data-price'));
+
+        // Get selected options
+        const cremes = Array.from(document.querySelectorAll('input[name="Creme-comboB"]:checked')).map(el => el.value);
+        const acompanhamentos = Array.from(document.querySelectorAll('input[name="AcompanhamentoGratis-comboB"]:checked')).map(el => el.value);
+        const frutas = Array.from(document.querySelectorAll('input[name="fruta-comboB"]:checked')).map(el => el.value);
+        const extras = Array.from(document.querySelectorAll('input[name="extra-comboB"]:checked')).map(el => el.value);
+        const cobertura = Array.from(document.querySelectorAll('input[name="Cobertura-comboB"]:checked')).map(el => el.value);
+        const Salgado = Array.from(document.querySelectorAll('input[name="salgado-comboB"]:checked')).map(el => el.value);
+        const observations = document.getElementById('observations').value;
+
+        // Calculate total price
+        let totalPrice = 0;
+        let description = `*_${nameCombo}_* (${sizeText})\n`;
+
+        // Add creams
+        if (cremes.length > 0) {
+            description += `*_Cremes:_* \n${cremes.join('; ')}`;
+        }
+
+        // Add free accompaniments
+        if (acompanhamentos.length > 0) {
+            description += `\n *_Acompanhamentos:_* \n${acompanhamentos.join('; ')}`;
+        }
+
+        // Add fruits
+        if (frutas.length > 0) {
+            description += `\n*_Frutas:_* \n${frutas.join('; ')}`;
+        }
+        if (cobertura.length > 0) {
+            description += `\n*_Cobertura:_* \n${cobertura.join('; ')}`;
+        }
+
+        // Add extras
+        if (extras.length > 0) {
+            extras.forEach(extra => {
+                if (extra === "Nutella") totalPrice += 3.5;
+                if (extra === "Oreo") totalPrice += 2;
+                if (extra === "Batom") totalPrice += 2;
+                if (extra === "Kit Kat") totalPrice += 3;
+                if (extra === "Bis") totalPrice += 2;
+                if (extra === "Castanha") totalPrice += 2;
+            });
+            description += `\n*_Extras:_*\n ${extras.join('; ')}`;
+        }
+
+        if (Salgado.length > 0) {
+            description += `\n*_Salgado:_* \n${Salgado.join('; ')}`;
+        }
+
+        // Add observations
+        if (observations.trim() !== '') {
+            description += `, Obs: ${observations}`;
+        }
+
+        addToCart({
+            name: "Segundo copo - Combo Família",
+            size: size + 'ml',
+            price: totalPrice,
+            description: description,
+            custom: true
+        });
+
+        updateCartCount();
+        showAddedToCartMessage(nameCombo);
+        closeModal('modal-combo3');
+    });
+    const addCustomToCartBtnComboTerC = document.getElementById('add-combo-to-cartTer');
+    addCustomToCartBtnComboTerC.addEventListener('click', function () {
+        const size = document.getElementById('sizeCombo').value;
+        const nameCombo = "Combo Família ou Amigos";
+        const sizeText = document.getElementById('sizeCombo').options[document.getElementById('sizeCombo').selectedIndex].text;
+        const basePrice = parseFloat(document.querySelector(`.add-to[data-product="${nameCombo}"]`).getAttribute('data-price'));
+
+        // Get selected options
+        const cremes = Array.from(document.querySelectorAll('input[name="Creme-comboC"]:checked')).map(el => el.value);
+        const acompanhamentos = Array.from(document.querySelectorAll('input[name="AcompanhamentoGratis-comboC"]:checked')).map(el => el.value);
+        const frutas = Array.from(document.querySelectorAll('input[name="fruta-comboC"]:checked')).map(el => el.value);
+        const extras = Array.from(document.querySelectorAll('input[name="extra-comboC"]:checked')).map(el => el.value);
+        const cobertura = Array.from(document.querySelectorAll('input[name="Cobertura-comboC"]:checked')).map(el => el.value);
+        const Salgado = Array.from(document.querySelectorAll('input[name="salgado-comboC"]:checked')).map(el => el.value);
+        const observations = document.getElementById('observations').value;
+
+        // Calculate total price
+        let totalPrice = 0;
+        let description = `*_${nameCombo}_* (${sizeText})\n`;
+
+        // Add creams
+        if (cremes.length > 0) {
+            description += `*_Cremes:_* \n${cremes.join('; ')}`;
+        }
+
+        // Add free accompaniments
+        if (acompanhamentos.length > 0) {
+            description += `\n *_Acompanhamentos:_* \n${acompanhamentos.join('; ')}`;
+        }
+
+        // Add fruits
+        if (frutas.length > 0) {
+            description += `\n*_Frutas:_* \n${frutas.join('; ')}`;
+        }
+        if (cobertura.length > 0) {
+            description += `\n*_Cobertura:_* \n${cobertura.join('; ')}`;
+        }
+
+        // Add extras
+        if (extras.length > 0) {
+            extras.forEach(extra => {
+                if (extra === "Nutella") totalPrice += 3.5;
+                if (extra === "Oreo") totalPrice += 2;
+                if (extra === "Batom") totalPrice += 2;
+                if (extra === "Kit Kat") totalPrice += 3;
+                if (extra === "Bis") totalPrice += 2;
+                if (extra === "Castanha") totalPrice += 2;
+            });
+            description += `\n*_Extras:_*\n ${extras.join('; ')}`;
+        }
+
+        if (Salgado.length > 0) {
+            description += `\n*_Salgado:_* \n${Salgado.join('; ')}`;
+        }
+
+        // Add observations
+        if (observations.trim() !== '') {
+            description += `, Obs: ${observations}`;
+        }
+
+        addToCart({
+            name: "Terceiro copo - Combo Família",
             size: size + 'ml',
             price: totalPrice,
             description: description,
@@ -897,3 +1121,124 @@ window.onclick = function (event) {
         }
     });
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Configurações de limite para cada combo
+    const comboLimits = {
+        'modal-combo1': {
+            '330': { // Tamanho 300ml
+                'acompanhamentos-group-combo': 3,
+                'frutas-group-combo': 2,
+                'cobertura-group-combo': 1,
+                'salgado-group-combo':1
+            }
+        },
+        'modal-combo2': {
+            '440': { // Tamanho 400ml
+                'acompanhamentos-group-combo': 3,
+                'frutas-group-combo': 2,
+                'cobertura-group-combo': 1,
+                'salgado-group-combo':1
+            }
+        },
+        'modal-combo2A': {
+            '440': { // Tamanho 400ml
+                'acompanhamentos-group-combo': 3,
+                'frutas-group-combo': 2,
+                'cobertura-group-combo': 1,
+                'salgado-group-combo':1
+            }
+        },
+        'modal-combo3': {
+            '550': { // Tamanho 500ml
+                'acompanhamentos-group-combo': 5,
+                'frutas-group-combo': 2,
+                'cobertura-group-combo': 1,
+                'salgado-group-combo':1
+            }
+        },
+        'modal-combo3A': {
+            '550': { // Tamanho 500ml
+                'acompanhamentos-group-combo': 5,
+                'frutas-group-combo': 2,
+                'cobertura-group-combo': 1,
+                'salgado-group-combo':1
+            }
+        },
+        'modal-combo3B': {
+            '550': { // Tamanho 500ml
+                'acompanhamentos-group-combo': 5,
+                'frutas-group-combo': 2,
+                'cobertura-group-combo': 1,
+                'salgado-group-combo':1
+            }
+        }
+    };
+
+    // Função para aplicar as restrições a um modal específico
+    function setupComboRestrictions(modalId) {
+        const modal = document.getElementById(modalId);
+        if (!modal) return;
+
+        const sizeSelect = modal.querySelector('select[id="sizeCombo"]');
+        if (!sizeSelect) return;
+
+        // Armazenar listeners para remoção posterior
+        const checkboxListeners = {};
+
+        function updateLimits() {
+            const selectedSize = sizeSelect.value;
+            const limits = comboLimits[modalId][selectedSize];
+
+            // Remover listeners antigos
+            Object.keys(checkboxListeners).forEach(groupId => {
+                const checkboxes = modal.querySelectorAll(`#${groupId} input[type="checkbox"]`);
+                const listeners = checkboxListeners[groupId];
+                
+                checkboxes.forEach((checkbox, index) => {
+                    checkbox.removeEventListener('change', listeners[index]);
+                });
+            });
+
+            // Limpar objeto de listeners
+            Object.keys(checkboxListeners).forEach(key => delete checkboxListeners[key]);
+
+            // Aplicar novos limites
+            Object.keys(limits).forEach(groupId => {
+                const limit = limits[groupId];
+                const checkboxes = modal.querySelectorAll(`#${groupId} input[type="checkbox"]`);
+                
+                checkboxListeners[groupId] = [];
+
+                checkboxes.forEach(checkbox => {
+                    const listener = function() {
+                        const checkedCount = modal.querySelectorAll(`#${groupId} input[type="checkbox"]:checked`).length;
+
+                        if (checkedCount > limit) {
+                            this.checked = false;
+                            alert(`Você só pode selecionar até ${limit} itens nesta categoria.`);
+                        }
+                    };
+
+                    checkbox.addEventListener('change', listener);
+                    checkboxListeners[groupId].push(listener);
+                });
+            });
+        }
+
+        // Inicializar limites
+        updateLimits();
+
+        // Atualizar quando o tamanho mudar
+        sizeSelect.addEventListener('change', updateLimits);
+    }
+
+    // Configurar restrições para cada modal
+    setupComboRestrictions('modal-combo1');
+    setupComboRestrictions('modal-combo2');
+    setupComboRestrictions('modal-combo2A');
+    setupComboRestrictions('modal-combo3');
+    setupComboRestrictions('modal-combo3A');
+    setupComboRestrictions('modal-combo3B');
+});
