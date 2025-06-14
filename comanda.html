@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comanda - FoxAçaí</title>
+    <link rel="icon" href="imagens/1.png" type="icon">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        :root {
+            --primary: #6a1b9a;
+            --secondary: #9c27b0;
+            --light: #f3e5f5;
+            --dark: #4a148c;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --white: #ffffff;
+            --text: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 15px 0;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header img{
+            width: 70px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .order-section {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--light);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .option-item input[type="checkbox"],
+        .option-item input[type="radio"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+        }
+
+        .option-item label {
+            font-size: 15px;
+            cursor: pointer;
+            flex-grow: 1;
+        }
+
+        .price-tag {
+            color: var(--success);
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 15px 0;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary {
+            background-color: var(--light);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--white);
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            background-color: #e53935;
+        }
+
+        .order-summary {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .summary-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .summary-content {
+            margin-bottom: 20px;
+        }
+
+        .summary-item {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .remove-item {
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--danger);
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .summary-item strong {
+            color: var(--primary);
+        }
+
+        .total {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            text-align: right;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px dashed var(--light);
+        }
+
+        .print-only {
+            display: none;
+        }
+
+        .combo-section {
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .combo-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .combo-title {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .combo-price {
+            font-weight: bold;
+            color: var(--success);
+            font-size: 18px;
+        }
+
+        .combo-description {
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        .add-combo-btn {
+            background-color: #4a148c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .add-combo-btn:hover {
+            background-color: #56019b;
+        }
+
+        .add-especial-btn {
+            background-color: #4a148c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+            width: 200px;
+        }
+
+        .add-especial-btn:hover {
+            background-color: #56019b;
+        }
+
+        .tab-container {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+        }
+
+        .tab.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .especial-item {
+            margin-bottom: 15px;
+        }
+
+        .especial-name {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .especial-desc {
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .especial-price {
+            font-weight: bold;
+            color: var(--success);
+        }
+
+        .client-info {
+            margin-bottom: 20px;
+        }
+
+        .client-info input,
+        .client-info select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .client-info label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-modal:hover {
+            color: black;
+        }
+
+        .modal-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .modal-acai-form {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            .order-summary,
+            .order-summary * {
+                visibility: visible;
+            }
+
+            .order-summary {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: white;
+                border: none;
+                box-shadow: none;
+            }
+
+            .no-print {
+                display: none;
+            }
+
+            .print-only {
+                display: block;
+                text-align: center;
+                margin-bottom: 20px;
+                font-size: 24px;
+                font-weight: bold;
+                color: var(--primary);
+            }
+
+            .remove-item {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .tab-container {
+                flex-wrap: wrap;
+            }
+
+            .tab {
+                margin-bottom: 5px;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 20% auto;
+            }
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            display: none;
+            animation: fadeIn 0.5s, fadeOut 0.5s 2.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <img src="imagens/2.png" alt="">
+            <h1>Sistema de Comanda - Açaí Delícia</h1>
+        </header>
+
+        <div class="tab-container">
+            <div class="tab active" data-tab="acai">Açaí Tradicional</div>
+            <div class="tab" data-tab="combos">Combos</div>
+            <div class="tab" data-tab="especiais">Especiais</div>
+            <div class="tab" data-tab="salgados">Salgados</div>
+        </div>
+
+        <!-- Client Information -->
+        <div class="order-section client-info no-print">
+            <h2 class="section-title">Informações do Cliente</h2>
+            <div>
+                <label for="client-name">Nome do Cliente:</label>
+                <input type="text" id="client-name" placeholder="Digite o nome do cliente...">
+            </div>
+            <div>
+                <label for="client-address">Endereço:</label>
+                <input type="text" id="client-address" placeholder="Digite o endereço de entrega...">
+            </div>
+            <div>
+                <label for="client-phone">Telefone:</label>
+                <input type="text" id="client-phone" placeholder="Digite o telefone...">
+            </div>
+            <div>
+                <label for="payment-method">Forma de Pagamento:</label>
+                <select id="payment-method">
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Cartão de Crédito">Cartão de Crédito</option>
+                    <option value="Cartão de Débito">Cartão de Débito</option>
+                    <option value="PIX">PIX</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Açaí Tradicional Tab -->
+        <div id="acai" class="tab-content active">
+            <div class="order-section">
+                <h2 class="section-title">Tamanho:</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" id="size-300" name="size" value="Copo Açai 300ml" checked
+                            data-price="12.00">
+                        <label for="size-300">Copo Açai 300ml <span class="price-tag">R$12,00</span></label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" id="size-400" name="size" value="Copo Açai 400ml" data-price="15.00">
+                        <label for="size-400">Copo Açai 400ml <span class="price-tag">R$15,00</span></label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" id="size-500" name="size" value="Copo Açai 500ml" data-price="17.00">
+                        <label for="size-500">Copo Açai 500ml <span class="price-tag">R$17,00</span></label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" id="size-700" name="size" value="Copo Açai 700ml" data-price="24.00">
+                        <label for="size-700">Copo Açai 700ml <span class="price-tag">R$24,00</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-section">
+                <h2 class="section-title">Cremes: <small>(Escolha até 2)</small></h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="checkbox" id="cream-1" name="cream" value="Açai Tradicional">
+                        <label for="cream-1">Açai Tradicional</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="cream-2" name="cream" value="Ninho">
+                        <label for="cream-2">Ninho</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="cream-3" name="cream" value="Ninho Trufado">
+                        <label for="cream-3">Ninho Trufado</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="cream-4" name="cream" value="Chocomalte">
+                        <label for="cream-4">Chocomalte</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="cream-5" name="cream" value="Cupuaçu">
+                        <label for="cream-5">Cupuaçu</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-section">
+                <h2 class="section-title">Acompanhamento Grátis: <small>(Escolha até 3)</small></h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-1" name="topping" value="Leite em pó">
+                        <label for="topping-1">Leite em pó</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-2" name="topping" value="Farinha Láctea">
+                        <label for="topping-2">Farinha Láctea</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-3" name="topping" value="Flocos de Arroz">
+                        <label for="topping-3">Flocos de Arroz</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-4" name="topping" value="M&M">
+                        <label for="topping-4">M&M</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-5" name="topping" value="ChocoPower">
+                        <label for="topping-5">ChocoPower</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-6" name="topping" value="Granola">
+                        <label for="topping-6">Granola</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-7" name="topping" value="Pagoca">
+                        <label for="topping-7">Pagoca</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-8" name="topping" value="Granulado">
+                        <label for="topping-8">Granulado</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-9" name="topping" value="Coco">
+                        <label for="topping-9">Coco</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-10" name="topping" value="Amendaim">
+                        <label for="topping-10">Amendaim</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-11" name="topping" value="Gota de Chocolate">
+                        <label for="topping-11">Gota de Chocolate</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-12" name="topping" value="Canudinho">
+                        <label for="topping-12">Canudinho</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-13" name="topping" value="Chocolatl">
+                        <label for="topping-13">Chocolatl</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-14" name="topping" value="Creme de avelã">
+                        <label for="topping-14">Creme de avelã</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="topping-15" name="topping" value="Ovomatine">
+                        <label for="topping-15">Ovomatine</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-section">
+                <h2 class="section-title">Frutas: <small>(Escolha até 1)</small></h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="checkbox" id="fruit-1" name="fruit" value="Morango">
+                        <label for="fruit-1">Morango</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="fruit-2" name="fruit" value="Banana">
+                        <label for="fruit-2">Banana</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="fruit-3" name="fruit" value="Uva">
+                        <label for="fruit-3">Uva</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="fruit-4" name="fruit" value="Coco">
+                        <label for="fruit-4">Coco</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="fruit-5" name="fruit" value="Cereja">
+                        <label for="fruit-5">Cereja</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="fruit-6" name="fruit" value="Kiwi">
+                        <label for="fruit-6">Kiwi</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-section">
+                <h2 class="section-title">Cobertura: <small>(Escolha até 1)</small></h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="radio" id="topping-16" name="cobertura" value="Leite Condensado">
+                        <label for="topping-16">Leite Condensado</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" id="topping-17" name="cobertura" value="Morango">
+                        <label for="topping-17">Morango</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" id="topping-18" name="cobertura" value="Uva">
+                        <label for="topping-18">Uva</label>
+                    </div>
+                    <div class="option-item">
+                        <input type="radio" id="topping-19" name="cobertura" value="Chocolate">
+                        <label for="topping-19">Chocolate</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="order-section">
+                <h2 class="section-title">Adicionais:</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="checkbox" id="extra-1" name="extra" value="Nutella" data-price="3.50">
+                        <label for="extra-1">Nutella <span class="price-tag">+R$3,50</span></label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="extra-2" name="extra" value="Oreo" data-price="2.00">
+                        <label for="extra-2">Oreo <span class="price-tag">+R$2,00</span></label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="extra-3" name="extra" value="Batom" data-price="2.00">
+                        <label for="extra-3">Batom <span class="price-tag">+R$2,00</span></label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="extra-4" name="extra" value="Kit Kat" data-price="3.00">
+                        <label for="extra-4">Kit Kat <span class="price-tag">+R$3,00</span></label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="extra-5" name="extra" value="Bis" data-price="2.00">
+                        <label for="extra-5">Bis <span class="price-tag">+R$2,00</span></label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="extra-6" name="extra" value="Castanha" data-price="2.00">
+                        <label for="extra-6">Castanha <span class="price-tag">+R$2,00</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Combos Tab -->
+        <div id="combos" class="tab-content">
+            <div class="combo-section">
+                <div class="combo-header">
+                    <div class="combo-title">Combo Madrugadão</div>
+                    <div class="combo-price">R$ 19,90</div>
+                </div>
+                <div class="combo-description">Copo 330ml + 1 salgado + frete grátis!</div>
+                <button class="add-combo-btn" data-combo="Combo Madrugadão" data-price="19.90" data-acai="1"
+                    data-salgados="1">Adicionar Combo</button>
+            </div>
+
+            <div class="combo-section">
+                <div class="combo-header">
+                    <div class="combo-title">Combo Casal da Madruga</div>
+                    <div class="combo-price">R$ 39,99</div>
+                </div>
+                <div class="combo-description">2 Copos 400ml + 2 salgados + frete grátis!</div>
+                <button class="add-combo-btn" data-combo="Combo Casal da Madruga" data-price="39.99" data-acai="2"
+                    data-salgados="2">Adicionar Combo</button>
+            </div>
+
+            <div class="combo-section">
+                <div class="combo-header">
+                    <div class="combo-title">Combo Família ou Amigos</div>
+                    <div class="combo-price">R$ 65,99</div>
+                </div>
+                <div class="combo-description">3 Copos 500ml + 3 salgados + frete grátis!</div>
+                <button class="add-combo-btn" data-combo="Combo Família ou Amigos" data-price="65.99" data-acai="3"
+                    data-salgados="3">Adicionar Combo</button>
+            </div>
+        </div>
+
+        <!-- Especiais Tab -->
+        <div id="especiais" class="tab-content">
+            <div class="order-section">
+                <div class="especial-item">
+                    <div class="especial-name">ESPECIAL MIX – BOMBOM</div>
+                    <div class="especial-desc">Feito com bordo de Nutella, leite Ninho, fundo de bombom, ouro branco
+                        picado, opal e cobertura de leite condensado.</div>
+                    <div class="especial-price">400ml - R$28,00</div>
+                    <button class="add-especial-btn" data-combo="ESPECIAL MIX – BOMBOM (400ml)"
+                        data-price="28.00">Adicionar Especial</button>
+                </div>
+
+                <div class="especial-item">
+                    <div class="especial-name">ESPECIAL FOX – TRUFADO</div>
+                    <div class="especial-desc">Feito com bordo de Nutella + opal, creme de Ninho trufado, pedaços de Kit
+                        Kat e morango, finalizado com mais nutella e leite em pó.</div>
+                    <div class="especial-price">500ml - R$34,00</div>
+                    <button class="add-especial-btn" data-combo="ESPECIAL FOX – TRUFADO (500ml)"
+                        data-price="34.00">Adicionar Especial</button>
+                </div>
+
+                <div class="especial-item">
+                    <div class="especial-name">ESPECIAL RAPOSA – CROCANTE</div>
+                    <div class="especial-desc">Bordo de doce de leite + acompanhado com ovomatine e pedaços, opal com
+                        flocos de arroz, finalizado com amendôas e leite condensado.</div>
+                    <div class="especial-price">500ml - R$28,00</div>
+                    <button class="add-especial-btn" data-combo="ESPECIAL RAPOSA – CROCANTE (500ml)"
+                        data-price="28.00">Adicionar Especial</button>
+                </div>
+
+                <div class="especial-item">
+                    <div class="especial-name">ESPECIAL ZERO – DO FOX</div>
+                    <div class="especial-desc">Açai zero açúcar, morango, banana, granola.</div>
+                    <div class="especial-price">400ml - R$20,00</div>
+                    <button class="add-especial-btn" data-combo="ESPECIAL ZERO – DO FOX (400ml)"
+                        data-price="20.00">Adicionar Especial</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Salgados Tab -->
+        <div id="salgados" class="tab-content">
+            <div class="order-section">
+                <h2 class="section-title">Salgados:</h2>
+                <div class="options-grid">
+                    <div class="option-item">
+                        <input type="checkbox" id="salgado-1" name="salgado" value="Coxinha" data-price="6.00">
+                        <label for="salgado-1">Coxinha <span class="price-tag">R$6,00</span></label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="salgado-2" name="salgado" value="Pastel de forno" data-price="6.00">
+                        <label for="salgado-2">Pastel de forno <span class="price-tag">R$6,00</span></label>
+                    </div>
+                    <div class="option-item">
+                        <input type="checkbox" id="salgado-3" name="salgado" value="Empada" data-price="6.00">
+                        <label for="salgado-3">Empada <span class="price-tag">R$6,00</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="reset-btn" class="btn btn-secondary no-print">Limpar Pedido</button>
+            <button id="add-acai-btn" class="btn btn-primary no-print">Adicionar Açaí ao Pedido</button>
+            <button id="submit-btn" class="btn btn-primary no-print">Finalizar Pedido</button>
+        </div>
+
+        <!-- Order Summary -->
+        <div id="order-summary" class="order-summary">
+            <div class="print-only">Comanda Açaí Delícia</div>
+            <h2 class="summary-title">Pedido #<span id="order-number">0000</span></h2>
+
+            <div class="summary-content">
+                <div class="summary-item">
+                    <span><strong>Cliente:</strong></span>
+                    <span id="summary-client-name">-</span>
+                </div>
+                <div class="summary-item">
+                    <span><strong>Endereço:</strong></span>
+                    <span id="summary-client-address">-</span>
+                </div>
+                <div class="summary-item">
+                    <span><strong>Telefone:</strong></span>
+                    <span id="summary-client-phone">-</span>
+                </div>
+                <div class="summary-item">
+                    <span><strong>Pagamento:</strong></span>
+                    <span id="summary-payment-method">-</span>
+                </div>
+                <div class="divider"></div>
+
+                <div id="summary-items">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </div>
+
+            <div class="total">
+                Total: R$<span id="summary-total">0,00</span>
+            </div>
+            <div class="actions no-print">
+                <button id="print-btn" class="btn btn-primary">Imprimir Comanda</button>
+                <button id="close-summary" class="btn btn-secondary">Fechar</button>
+            </div>
+        </div>
+
+        <!-- Combo Customization Modal -->
+        <div id="combo-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 class="modal-title" id="modal-combo-title">Personalizar Combo</h2>
+                <div id="modal-combo-content">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+                <div class="modal-actions">
+                    <button id="save-combo" class="btn btn-primary">Salvar Combo</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast notification -->
+        <div id="toast" class="toast">Pedido enviado com sucesso!</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Element references
+            const submitBtn = document.getElementById('submit-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const printBtn = document.getElementById('print-btn');
+            const closeSummary = document.getElementById('close-summary');
+            const orderSummary = document.getElementById('order-summary');
+            const summaryItems = document.getElementById('summary-items');
+            const toast = document.getElementById('toast');
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const comboModal = document.getElementById('combo-modal');
+            const modalComboTitle = document.getElementById('modal-combo-title');
+            const modalComboContent = document.getElementById('modal-combo-content');
+            const saveComboBtn = document.getElementById('save-combo');
+            const closeModalBtn = document.querySelector('.close-modal');
+            const addAcaiBtn = document.getElementById('add-acai-btn'); // Novo botão
+
+            // Current order items
+            let orderItems = [];
+            let total = 0;
+            let currentCombo = null;
+
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    tab.classList.add('active');
+                    const tabId = tab.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Add especial items to order
+            document.querySelectorAll('.add-especial-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const especialName = this.getAttribute('data-combo');
+                    const especialPrice = parseFloat(this.getAttribute('data-price'));
+
+                    orderItems.push({
+                        type: 'especial',
+                        name: especialName,
+                        price: especialPrice
+                    });
+
+                    total += especialPrice;
+
+                    showToast(`${especialName} adicionado ao pedido!`);
+                });
+            });
+
+            // Add combo to order - opens modal
+            document.querySelectorAll('.add-combo-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    currentCombo = {
+                        name: this.getAttribute('data-combo'),
+                        price: parseFloat(this.getAttribute('data-price')),
+                        acaiCount: parseInt(this.getAttribute('data-acai')) || 0,
+                        salgadosCount: parseInt(this.getAttribute('data-salgados')) || 0
+                    };
+
+                    // Set modal title
+                    modalComboTitle.textContent = `Personalizar ${currentCombo.name}`;
+
+                    // Clear previous content
+                    modalComboContent.innerHTML = '';
+
+                    // Create forms for each açaí in the combo
+                    for (let i = 1; i <= currentCombo.acaiCount; i++) {
+                        const formDiv = document.createElement('div');
+                        formDiv.className = 'modal-acai-form';
+                        formDiv.innerHTML = `
+                    <h3>Açaí ${i}</h3>
+                    <div class="options-grid">
+                        <div class="option-item">
+                            <input type="radio" name="combo-size-${i}" id="combo-size-${i}-300" value="300ml" ${i === 1 ? 'checked' : ''}>
+                            <label for="combo-size-${i}-300">300ml</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="combo-size-${i}" id="combo-size-${i}-400" value="400ml">
+                            <label for="combo-size-${i}-400">400ml</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" name="combo-size-${i}" id="combo-size-${i}-500" value="500ml">
+                            <label for="combo-size-${i}-500">500ml</label>
+                        </div>
+                    </div>
+                    
+                    <h4>Cremes: <small>(Escolha até 2)</small></h4>
+                    <div class="options-grid">
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-cream-${i}-1" name="combo-cream-${i}" value="Açai Tradicional">
+                            <label for="combo-cream-${i}-1">Açai Tradicional</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-cream-${i}-2" name="combo-cream-${i}" value="Ninho">
+                            <label for="combo-cream-${i}-2">Ninho</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-cream-${i}-3" name="combo-cream-${i}" value="Ninho Trufado">
+                            <label for="combo-cream-${i}-3">Ninho Trufado</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-cream-${i}-4" name="combo-cream-${i}" value="Chocomalte">
+                            <label for="combo-cream-${i}-4">Chocomalte</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-cream-${i}-5" name="combo-cream-${i}" value="Cupuaçu">
+                            <label for="combo-cream-${i}-5">Cupuaçu</label>
+                        </div>
+                    </div>
+                    
+                    <h4>Acompanhamentos: <small>(Escolha até 3)</small></h4>
+                    <div class="options-grid">
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-topping-${i}-1" name="combo-topping-${i}" value="Leite em pó">
+                            <label for="combo-topping-${i}-1">Leite em pó</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-topping-${i}-2" name="combo-topping-${i}" value="Farinha Láctea">
+                            <label for="combo-topping-${i}-2">Farinha Láctea</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-topping-${i}-3" name="combo-topping-${i}" value="Flocos de Arroz">
+                            <label for="combo-topping-${i}-3">Flocos de Arroz</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-topping-${i}-4" name="combo-topping-${i}" value="M&M">
+                            <label for="combo-topping-${i}-4">M&M</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-topping-${i}-5" name="combo-topping-${i}" value="ChocoPower">
+                            <label for="combo-topping-${i}-5">ChocoPower</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-topping-${i}-6" name="combo-topping-${i}" value="Granola">
+                            <label for="combo-topping-${i}-6">Granola</label>
+                        </div>
+                    </div>
+                    
+                    <h4>Fruta:</h4>
+                    <div class="options-grid">
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-fruit-${i}-1" name="combo-fruit-${i}" value="Morango">
+                            <label for="combo-fruit-${i}-1">Morango</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-fruit-${i}-2" name="combo-fruit-${i}" value="Banana">
+                            <label for="combo-fruit-${i}-2">Banana</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-fruit-${i}-3" name="combo-fruit-${i}" value="Uva">
+                            <label for="combo-fruit-${i}-3">Uva</label>
+                        </div>
+                    </div>
+                    
+                    <h4>Cobertura:</h4>
+                    <div class="options-grid">
+                        <div class="option-item">
+                            <input type="radio" id="combo-cobertura-${i}-1" name="combo-cobertura-${i}" value="Leite Condensado">
+                            <label for="combo-cobertura-${i}-1">Leite Condensado</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="combo-cobertura-${i}-2" name="combo-cobertura-${i}" value="Morango">
+                            <label for="combo-cobertura-${i}-2">Morango</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="radio" id="combo-cobertura-${i}-3" name="combo-cobertura-${i}" value="Chocolate">
+                            <label for="combo-cobertura-${i}-3">Chocolate</label>
+                        </div>
+                    </div>
+                `;
+                        modalComboContent.appendChild(formDiv);
+                    }
+
+                    // Add salgados selection if needed
+                    if (currentCombo.salgadosCount > 0) {
+                        const salgadosDiv = document.createElement('div');
+                        salgadosDiv.className = 'modal-acai-form';
+                        salgadosDiv.innerHTML = `
+                    <h3>Salgados (Selecione ${currentCombo.salgadosCount})</h3>
+                    <div class="options-grid">
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-salgado-1" name="combo-salgado" value="Coxinha">
+                            <label for="combo-salgado-1">Coxinha</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-salgado-2" name="combo-salgado" value="Pastel de forno">
+                            <label for="combo-salgado-2">Pastel de forno</label>
+                        </div>
+                        <div class="option-item">
+                            <input type="checkbox" id="combo-salgado-3" name="combo-salgado" value="Empada">
+                            <label for="combo-salgado-3">Empada</label>
+                        </div>
+                    </div>
+                `;
+                        modalComboContent.appendChild(salgadosDiv);
+                    }
+
+                    // Show the modal
+                    comboModal.style.display = 'block';
+                });
+            });
+
+            // Save combo customization
+            saveComboBtn.addEventListener('click', function () {
+                if (!currentCombo) return;
+
+                // Validate creams (max 2 per açaí)
+                for (let i = 1; i <= currentCombo.acaiCount; i++) {
+                    const selectedCreams = document.querySelectorAll(`input[name="combo-cream-${i}"]:checked`);
+                    if (selectedCreams.length > 2) {
+                        alert(`Por favor, selecione no máximo 2 cremes para o Açaí ${i}.`);
+                        return;
+                    }
+                }
+
+                // Validate toppings (max 3 per açaí)
+                for (let i = 1; i <= currentCombo.acaiCount; i++) {
+                    const selectedToppings = document.querySelectorAll(`input[name="combo-topping-${i}"]:checked`);
+                    if (selectedToppings.length > 3) {
+                        alert(`Por favor, selecione no máximo 3 acompanhamentos para o Açaí ${i}.`);
+                        return;
+                    }
+                }
+
+                // Validate salgados
+                if (currentCombo.salgadosCount > 0) {
+                    const selectedSalgados = document.querySelectorAll('input[name="combo-salgado"]:checked');
+                    if (selectedSalgados.length !== currentCombo.salgadosCount) {
+                        alert(`Por favor, selecione exatamente ${currentCombo.salgadosCount} salgado(s).`);
+                        return;
+                    }
+                }
+
+                // Add combo to order
+                const comboItems = [];
+                const pricePerItem = currentCombo.price / (currentCombo.acaiCount + currentCombo.salgadosCount);
+
+                // Add açaís
+                for (let i = 1; i <= currentCombo.acaiCount; i++) {
+                    const size = document.querySelector(`input[name="combo-size-${i}"]:checked`).value;
+                    const creams = Array.from(document.querySelectorAll(`input[name="combo-cream-${i}"]:checked`)).map(c => c.value).join(', ') || 'Nenhum selecionado';
+                    const toppings = Array.from(document.querySelectorAll(`input[name="combo-topping-${i}"]:checked`)).map(t => t.value).join(', ') || 'Nenhum selecionado';
+                    const fruit = document.querySelector(`input[name="combo-fruit-${i}"]:checked`)?.value || 'Nenhuma selecionada';
+                    const cobertura = document.querySelector(`input[name="combo-cobertura-${i}"]:checked`)?.value || 'Nenhuma selecionada';
+
+                    comboItems.push({
+                        type: 'combo-item',
+                        combo: currentCombo.name,
+                        item: `Açaí ${i}`,
+                        size: size,
+                        creams: creams,
+                        toppings: toppings,
+                        fruit: fruit,
+                        cobertura: cobertura,
+                        price: pricePerItem
+                    });
+                }
+
+                // Add salgados
+                if (currentCombo.salgadosCount > 0) {
+                    const selectedSalgados = Array.from(document.querySelectorAll('input[name="combo-salgado"]:checked')).map(s => s.value);
+
+                    selectedSalgados.forEach((salgado, index) => {
+                        comboItems.push({
+                            type: 'combo-item',
+                            combo: currentCombo.name,
+                            item: `Salgado ${index + 1}`,
+                            name: salgado,
+                            price: pricePerItem
+                        });
+                    });
+                }
+
+                // Add to order
+                orderItems = orderItems.concat(comboItems);
+                total += currentCombo.price;
+
+                // Close modal
+                comboModal.style.display = 'none';
+                showToast(`${currentCombo.name} adicionado ao pedido!`);
+            });
+
+            // Close modal
+            closeModalBtn.addEventListener('click', function () {
+                comboModal.style.display = 'none';
+            });
+
+            // Close modal when clicking outside
+            window.addEventListener('click', function (event) {
+                if (event.target === comboModal) {
+                    comboModal.style.display = 'none';
+                }
+            });
+
+            // Botão para adicionar açaí tradicional
+            addAcaiBtn.addEventListener('click', function () {
+                // Validar cremes (max 2)
+                const selectedCreams = document.querySelectorAll('#acai input[name="cream"]:checked');
+                if (selectedCreams.length > 2) {
+                    alert('Por favor, selecione no máximo 2 cremes.');
+                    return;
+                }
+
+                // Validar toppings (max 3)
+                const selectedToppings = document.querySelectorAll('#acai input[name="topping"]:checked');
+                if (selectedToppings.length > 3) {
+                    alert('Por favor, selecione no máximo 3 acompanhamentos.');
+                    return;
+                }
+
+                // Obter tamanho selecionado
+                const selectedSize = document.querySelector('#acai input[name="size"]:checked');
+                if (!selectedSize) {
+                    alert('Por favor, selecione um tamanho.');
+                    return;
+                }
+
+                // Obter fruta, cobertura e extras
+                const selectedFruit = document.querySelector('#acai input[name="fruit"]:checked');
+                const selectedCobertura = document.querySelector('#acai input[name="cobertura"]:checked');
+                const selectedExtras = document.querySelectorAll('#acai input[name="extra"]:checked');
+
+                // Calcular preço
+                let açaíTotal = parseFloat(selectedSize.dataset.price);
+                selectedExtras.forEach(extra => {
+                    açaíTotal += parseFloat(extra.dataset.price);
+                });
+
+                // Adicionar ao pedido
+                orderItems.push({
+                    type: 'açaí',
+                    name: 'Açaí Tradicional',
+                    size: selectedSize.value,
+                    creams: selectedCreams.length > 0 ?
+                        Array.from(selectedCreams).map(c => c.value).join(', ') :
+                        'Nenhum selecionado',
+                    toppings: selectedToppings.length > 0 ?
+                        Array.from(selectedToppings).map(t => t.value).join(', ') :
+                        'Nenhum selecionado',
+                    fruit: selectedFruit ? selectedFruit.value : 'Nenhuma selecionada',
+                    cobertura: selectedCobertura ? selectedCobertura.value : 'Nenhuma selecionada',
+                    extras: selectedExtras.length > 0 ?
+                        Array.from(selectedExtras).map(e => e.value).join(', ') :
+                        'Nenhum selecionado',
+                    price: açaíTotal
+                });
+
+                total += açaíTotal;
+
+                showToast('Açaí tradicional adicionado ao pedido!');
+            });
+
+            // Finalizar pedido
+            submitBtn.addEventListener('click', function () {
+                // Obter informações do cliente
+                const clientName = document.getElementById('client-name').value || 'Não informado';
+                const clientAddress = document.getElementById('client-address').value || 'Não informado';
+                const clientPhone = document.getElementById('client-phone').value || 'Não informado';
+                const paymentMethod = document.getElementById('payment-method').value || 'Não informado';
+
+                // Atualizar resumo com informações do cliente
+                document.getElementById('summary-client-name').textContent = clientName;
+                document.getElementById('summary-client-address').textContent = clientAddress;
+                document.getElementById('summary-client-phone').textContent = clientPhone;
+                document.getElementById('summary-payment-method').textContent = paymentMethod;
+
+                // Adicionar salgados (se houver)
+                const selectedSalgados = document.querySelectorAll('#salgados input[name="salgado"]:checked');
+                selectedSalgados.forEach(salgado => {
+                    const salgadoPrice = parseFloat(salgado.dataset.price);
+                    orderItems.push({
+                        type: 'salgado',
+                        name: salgado.value,
+                        price: salgadoPrice
+                    });
+                    total += salgadoPrice;
+                });
+
+                // Verificar se há itens no pedido
+                if (orderItems.length === 0) {
+                    alert('Por favor, adicione itens ao pedido.');
+                    return;
+                }
+
+                // Gerar resumo
+                generateSummary();
+
+                // Mostrar resumo
+                orderSummary.style.display = 'block';
+
+                // Mostrar notificação
+                showToast('Pedido finalizado com sucesso!');
+            });
+
+            // Generate order summary
+            function generateSummary() {
+                summaryItems.innerHTML = '';
+
+                // Group combo items
+                const groupedItems = {};
+                orderItems.forEach(item => {
+                    if (item.type === 'combo-item') {
+                        if (!groupedItems[item.combo]) {
+                            groupedItems[item.combo] = {
+                                type: 'combo',
+                                name: item.combo,
+                                items: [],
+                                price: 0
+                            };
+                        }
+                        groupedItems[item.combo].items.push(item);
+                        groupedItems[item.combo].price += item.price;
+                    }
+                });
+
+                // Add grouped combo items and other items
+                [...Object.values(groupedItems), ...orderItems.filter(item => item.type !== 'combo-item')].forEach(item => {
+                    const itemDiv = document.createElement('div');
+
+                    if (item.type === 'açaí') {
+                        itemDiv.innerHTML = `
+                    <div class="summary-item">
+                        <span><strong>Açaí Tradicional:</strong></span>
+                        <span>${item.size}</span>
+                        <span class="remove-item" data-id="${orderItems.indexOf(item)}">×</span>
+                    </div>
+                    <div class="summary-item">
+                        <span><strong>Cremes:</strong></span>
+                        <span>${item.creams}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span><strong>Acompanhamentos:</strong></span>
+                        <span>${item.toppings}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span><strong>Fruta:</strong></span>
+                        <span>${item.fruit}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span><strong>Cobertura:</strong></span>
+                        <span>${item.cobertura}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span><strong>Adicionais:</strong></span>
+                        <span>${item.extras}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span><strong>Preço:</strong></span>
+                        <span>R$${item.price.toFixed(2).replace('.', ',')}</span>
+                    </div>
+                    <div class="divider"></div>
+                `;
+                    } else if (item.type === 'combo') {
+                        let comboItemsHTML = '';
+                        item.items.forEach(comboItem => {
+                            if (comboItem.item.includes('Açaí')) {
+                                comboItemsHTML += `
+                            <div class="summary-item" style="margin-left: 20px;">
+                                <span>${comboItem.item} (${comboItem.size}):</span>
+                                <span>R$${comboItem.price.toFixed(2).replace('.', ',')}</span>
+                                <span class="remove-item" data-combo="${item.name}">×</span>
+                            </div>
+                            <div class="summary-item" style="margin-left: 30px;">
+                                <span>Cremes: ${comboItem.creams}</span>
+                            </div>
+                            <div class="summary-item" style="margin-left: 30px;">
+                                <span>Acompanhamentos: ${comboItem.toppings}</span>
+                            </div>
+                            <div class="summary-item" style="margin-left: 30px;">
+                                <span>Fruta: ${comboItem.fruit}</span>
+                            </div>
+                            <div class="summary-item" style="margin-left: 30px;">
+                                <span>Cobertura: ${comboItem.cobertura}</span>
+                            </div>
+                        `;
+                            } else {
+                                comboItemsHTML += `
+                            <div class="summary-item" style="margin-left: 20px;">
+                                <span>${comboItem.item}: ${comboItem.name}</span>
+                                <span>R$${comboItem.price.toFixed(2).replace('.', ',')}</span>
+                                <span class="remove-item" data-combo="${item.name}">×</span>
+                            </div>
+                        `;
+                            }
+                        });
+
+                        itemDiv.innerHTML = `
+                    <div class="summary-item">
+                        <span><strong>${item.name}:</strong></span>
+                        <span>R$${item.price.toFixed(2).replace('.', ',')}</span>
+                        <span class="remove-item" data-combo="${item.name}">×</span>
+                    </div>
+                    ${comboItemsHTML}
+                    <div class="divider"></div>
+                `;
+                    } else if (item.type === 'especial') {
+                        itemDiv.innerHTML = `
+                    <div class="summary-item">
+                        <span><strong>${item.name}:</strong></span>
+                        <span>R$${item.price.toFixed(2).replace('.', ',')}</span>
+                        <span class="remove-item" data-id="${orderItems.indexOf(item)}">×</span>
+                    </div>
+                    <div class="divider"></div>
+                `;
+                    } else if (item.type === 'salgado') {
+                        itemDiv.innerHTML = `
+                    <div class="summary-item">
+                        <span><strong>${item.name}:</strong></span>
+                        <span>R$${item.price.toFixed(2).replace('.', ',')}</span>
+                        <span class="remove-item" data-id="${orderItems.indexOf(item)}">×</span>
+                    </div>
+                    <div class="divider"></div>
+                `;
+                    }
+
+                    summaryItems.appendChild(itemDiv);
+                });
+
+                // Add event listeners to remove buttons
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const itemId = this.getAttribute('data-id');
+                        const comboName = this.getAttribute('data-combo');
+
+                        if (itemId) {
+                            // Remove single item
+                            const item = orderItems[itemId];
+                            total -= item.price;
+                            orderItems.splice(itemId, 1);
+                        } else if (comboName) {
+                            // Remove entire combo
+                            const comboItems = orderItems.filter(item =>
+                                item.type === 'combo-item' && item.combo === comboName
+                            );
+
+                            comboItems.forEach(comboItem => {
+                                total -= comboItem.price;
+                            });
+
+                            orderItems = orderItems.filter(item =>
+                                !(item.type === 'combo-item' && item.combo === comboName)
+                            );
+                        }
+
+                        // Regenerate summary
+                        generateSummary();
+                    });
+                });
+
+                // Update total
+                document.getElementById('summary-total').textContent = total.toFixed(2).replace('.', ',');
+
+                // Generate random order number
+                document.getElementById('order-number').textContent = Math.floor(1000 + Math.random() * 9000);
+            }
+
+            // Reset form
+            resetBtn.addEventListener('click', function () {
+                if (confirm('Tem certeza que deseja limpar todo o pedido?')) {
+                    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                        checkbox.checked = false;
+                    });
+                    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                        radio.checked = false;
+                    });
+                    // Reset size to default
+                    document.getElementById('size-300').checked = true;
+
+                    // Clear client info
+                    document.getElementById('client-name').value = '';
+                    document.getElementById('client-address').value = '';
+                    document.getElementById('client-phone').value = '';
+
+                    // Clear order
+                    orderItems = [];
+                    total = 0;
+
+                    showToast('Pedido limpo com sucesso!');
+                }
+            });
+
+            // Print order
+            printBtn.addEventListener('click', function () {
+                window.print();
+            });
+
+            // Close summary
+            closeSummary.addEventListener('click', function () {
+                orderSummary.style.display = 'none';
+            });
+
+            // // Add max selection limits
+            // document.querySelectorAll('#acai input[name="cream"]').forEach(checkbox => {
+            //     checkbox.addEventListener('change', function () {
+            //         const checked = document.querySelectorAll('#acai input[name="cream"]:checked');
+            //         if (checked.length > 2) {
+            //             this.checked = false;
+            //             alert('Você pode selecionar no máximo 2 cremes.');
+            //         }
+            //     });
+            // });
+
+            // document.querySelectorAll('#acai input[name="topping"]').forEach(checkbox => {
+            //     checkbox.addEventListener('change', function () {
+            //         const checked = document.querySelectorAll('#acai input[name="topping"]:checked');
+            //         if (checked.length > 3) {
+            //             this.checked = false;
+            //             alert('Você pode selecionar no máximo 3 acompanhamentos.');
+            //         }
+            //     });
+            // });
+
+            // Show toast notification
+            function showToast(message) {
+                toast.textContent = message;
+                toast.style.display = 'block';
+                setTimeout(() => {
+                    toast.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+
+</html>

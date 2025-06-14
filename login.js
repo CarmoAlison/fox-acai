@@ -11,7 +11,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     
     if (username === correctUsername && password === correctPassword) {
         // Redireciona para o link se as credenciais estiverem corretas
-        window.location.href = 'https://forms.clickup.com/90131557899/f/2ky44vgb-53/7IKY44LUH23F8EUAVG';
+        window.location.href = 'localizar.html';
     } else {
         // Mostra mensagem de erro
         errorMessage.textContent = 'Usuário ou senha incorretos. Tente novamente.';
