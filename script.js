@@ -878,6 +878,8 @@ document.addEventListener('DOMContentLoaded', function () {
         switch (productName) {
             case 'ESPECIAL MIX':
                 return 26.00;
+            case 'PROMOÇÃO DO DIA - 2X ESPECIAL MIX':
+                return 39.00;
             case 'ESPECIAL FOX':
                 return 34.00;
             case 'ESPECIAL RAPOSA':
